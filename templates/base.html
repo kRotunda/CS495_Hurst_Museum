@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Home</title>
+
+    <style>
+    ul {
+       padding: 0;
+      overflow: hidden;
+      background-color: grey;
+     }
+
+    li {
+    float: left;
+    }
+
+    li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    }
+
+    li a:hover {
+    background-color: red;
+    }
+
+    #navigation ul{
+	font-size: 1.4em;
+    }
+
+    #navigation ul li{
+      display: inline;
+	  color:white;
+    }
+    #navigation li:not(:first-child):before {
+       content: " | ";
+      }
+     .pictures {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 50px;
+      }
+
+      .picture {
+        width: calc(33.33% - 20px);
+        height: 200px;
+        background-color: gray;
+        margin-bottom: 20px;
+      }
+
+    </style>
+
+    <h1>CT Hurst Virtual Museum</h1>
+</head>
+<body>
+<div id="navigation">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Blog</a></li>
+    </ul>
+</div>
+
+<div class="pictures">
+    <div class="picture">Picture 1</div>
+    <div class="picture">Picture 2</div>
+    <div class="picture">Picture 3</div>
+    <div class="picture">Picture 4</div>
+    <div class="picture">Picture 5</div>
+    <div class="picture">Picture 6</div>
+    <div class="picture">Picture 5</div>
+    <div class="picture">Picture 6</div>
+    <div class="picture">Picture 5</div>
+    <div class="picture">Picture 6</div>
+</div>
+</body>
+</html>
