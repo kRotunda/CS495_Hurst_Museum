@@ -96,3 +96,39 @@ ul {
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+
+  #subNavigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    border: 1px solid #555;
+  }
+  
+  #subNavigation li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  #subNavigation li {
+    text-align: center;
+    border-bottom: 1px solid #555;
+  }
+  
+  #subNavigation li:last-child {
+    border-bottom: none;
+  }
+  
+  #subNavigation li a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  
+  #subNavigation li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
