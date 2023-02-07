@@ -1,0 +1,15 @@
+{% extends base %}
+
+{% block title %} {{ subject }} {% endblock %}
+
+{% block content %}
+    <h1 align="left">{{ subject }} Gallery</h1>
+
+    <div class="vertical-menu">
+        <a href="/{{ subject }}">Overview</a>
+        <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
+        <a href="/{{ subject }}_Exhibits">Exhibits</a>
+        <a href="/{{ subject }}_Timeline">Timeline</a>
+      </div>
+
+{% endblock %}

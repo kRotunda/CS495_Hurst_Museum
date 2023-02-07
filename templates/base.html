@@ -4,28 +4,27 @@
 
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 
-    <h1>CT Hurst Virtual Museum</h1>
+    <h1 align="left" class="siteHeading">CT Hurst Virtual Museum</h1>
 </head>
 <body>
-<div id="navigation">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/Archeology">Archeology</a></li>
-        <li><a href="/Biology">Biology</a></li>
-        <li><a href="/Geology">Geology</a></li>
-        <li><a href="/Paleontology">Paleontology</a></li>
-        <div class="dropdown">
-            <button class="dropbtn">About Us
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-              <a href="/ContactUs">Contact Us</a>
-              <a href="/HistoryOfMuseum">History of Museum</a>
-              <a href="/Admin">Admin Login</a>
-            </div>
-          </div>
-    </ul>
-</div>
+
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/Archeology">Archeology</a>
+    <a href="/Biology">Biology</a>
+    <a href="/Geology">Geology</a>
+    <a href="/Paleontology">Paleontology</a>
+    <div class="dropdown">
+      <button class="dropbtn">About Us 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/Contact_Us">Contact Us</a>
+        <a href="/History_Of_Museum">History of Museum</a>
+        <a href="/Admin_Login">Admin Login</a>
+      </div>
+    </div> 
+  </div>
 
 {% block content %}{% endblock %}
 </body>
