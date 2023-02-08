@@ -26,5 +26,13 @@ def paleontology():
 def aboutUs():
     return render_template('home.html', base="base.html")
 
+@app.route("/History")
+def aboutUs():
+    return render_template('home.html', base="base.html")
+
+@app.route("/Admin")
+def aboutUs():
+    return render_template('home.html', base="base.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
