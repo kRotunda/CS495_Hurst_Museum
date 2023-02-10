@@ -86,21 +86,14 @@ def paleontologyTimeline():
 def contactUs():
     return render_template('contact.html', base="base.html")
 
-@app.route("/History_Of_Museum")
-def historyOfMuseum():
-    return render_template('history.html', base="base.html")
+app.route("/History_Of_Museum")
+def history():
+    return render_template('home.html', base="base.html")
 
 @app.route("/Admin_Login")
 def adminLogin():
     return render_template('login.html', base="base.html")
 
-@app.route("/History")
-def aboutUs():
-    return render_template('home.html', base="base.html")
-
-@app.route("/Admin")
-def aboutUs():
-    return render_template('home.html', base="base.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
