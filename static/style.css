@@ -178,3 +178,28 @@ body {
 .admin form {
   display: inline-block;
 }
+
+/***************************** Upload *****************************/
+
+.upload {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #B10505;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.upload:hover {
+  background-color: #E30B0B;
+}
+
+form {
+  display: inline-block; 
+}

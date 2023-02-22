@@ -21,7 +21,12 @@
       <div class="dropdown-content">
         <a href="/Contact_Us">Contact Us</a>
         <a href="/History_Of_Museum">History of Museum</a>
-        <a href="/Admin_Login">Admin Login</a>
+        {% if current_user.is_authenticated %}
+          <a href="/Upload">Upload</a>
+          <a href="/Logout">Logout</a>
+        {% else %}
+          <a href="/Admin_Login">Admin Login</a>
+        {% endif %}
       </div>
     </div> 
   </div>
