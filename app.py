@@ -86,9 +86,9 @@ def paleontologyTimeline():
 def contactUs():
     return render_template('contact.html', base="base.html")
 
-app.route("/History_Of_Museum")
+@app.route("/History_Of_Museum")
 def history():
-    return render_template('home.html', base="base.html")
+    return render_template('3dmodel.html', base="base.html")
 
 @app.route("/Admin_Login")
 def adminLogin():
