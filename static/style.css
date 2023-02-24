@@ -181,6 +181,10 @@ body {
 
 /***************************** Upload *****************************/
 
+.artifactUplad form {
+  display: block;
+}
+
 .upload {
   display: inline-block;
   border-radius: 4px;

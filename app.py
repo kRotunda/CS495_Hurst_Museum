@@ -233,6 +233,25 @@ def adminLogin():
 def upload():
     return render_template('upload.html', base="base.html")
 
+@app.route("/Create_Admin", methods = ['GET', 'POST'])
+@login_required
+def createAdmin():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        newUser = User(username = username, password = password)
+        db.session.add(newUser)
+        db.session.commit()
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createAdmin = 1)
+
+@app.route("/Create_Artifact", methods = ['GET', 'POST'])
+@login_required
+def createArtifact():
+    if request.method == 'POST':
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createArtifact = 1)
+
 @app.route('/Logout')
 @login_required
 def logout():
