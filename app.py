@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
+from werkzeug.utils import secure_filename
 import flask
 
 app = Flask(__name__, static_url_path='/static')
@@ -16,6 +17,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
+    firstname = db.Column(db.String(50), nullable=False)
+    lastname = db.Column(db.String(50), nullable=False)
 
 class Archeology(db.Model):
    id = db.Column(db.Integer, primary_key=True)
@@ -239,7 +242,9 @@ def createAdmin():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        newUser = User(username = username, password = password)
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        newUser = User(username = username, password = password, firstname = firstname, lastname = lastname)
         db.session.add(newUser)
         db.session.commit()
         return render_template('upload.html', base="base.html")
@@ -249,6 +254,37 @@ def createAdmin():
 @login_required
 def createArtifact():
     if request.method == 'POST':
+        subject = request.form['subject']
+        artifactName = request.form['artifactName']
+        description = request.form['description']
+        year = request.form['year']
+
+        if subject == "archeology":
+            newArtifact = Archeology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
+        if subject == "biology":
+            newArtifact = Biology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
+        if subject == "geology":
+            newArtifact = Geology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
+        if subject == "paleontology":
+            newArtifact = Paleontology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
+
+
+        for x in range(0,10):   
+            image = request.files['file'+str(x)]
+            if image:
+                filename = secure_filename(image.filename)
+                print(filename)
+        
+        
+        # newImg = Image(ImageName = '-1', AssignmentId = newAssinmnet.id)
+        
+        # db.session.add(newImg)
+        # db.session.commit()
+
+        # db.session.add(newArtifact)
+        # db.session.commit()
+
+
         return render_template('upload.html', base="base.html")
     return render_template('upload.html', base="base.html", createArtifact = 1)
 
