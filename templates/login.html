@@ -8,10 +8,14 @@
 
 <form action="/Admin_Login" method="post" class="admin">
     <label for="username">Username:</label><br>
-    <input type="text" id="username"><br><br>
+    <input type="text" name="username"><br><br>
     <label for="password">password:</label><br>
-    <input type="password" id="password"><br><br>
+    <input type="password" name="password"><br><br>
     <input type="submit" value="Login">
-  </form>
+</form>
+
+{% if error %}
+  <p style="color:red;">ERROR: username/password incorrect</p>
+{% endif %}
 
 {% endblock %}

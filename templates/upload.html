@@ -1,0 +1,79 @@
+{% extends base %}
+
+{% block title %}Upload{% endblock %}
+
+{% block content %}
+
+    <h1 align="left">Create</h1><br><br>
+
+    {% if createAdmin %}
+
+    <form action="/Create_Admin" method="post" class="admin">
+        <label for="username">Username:</label><br>
+        <input type="text" name="username"><br><br>
+        <label for="password">password:</label><br>
+        <input type="password" name="password"><br><br>
+        <input type="submit" value="Create">
+    </form>
+
+    {% elif createArtifact %}
+
+    <form class="artifactUplad" id="artifactUploadForm" action="/Create_Artifact" method="post">
+        <label for="subject">Choose Subject:</label>
+        <select id="subject" name="subject">
+            <option value="archeology">Archeology</option>
+            <option value="biology">Biology</option>
+            <option value="geology">Geology</option>
+            <option value="paleontology">Paleontology</option>
+        </select><br><br>
+        <label for="name">Artifact Name:</label><br>
+        <input type="text" name="artifactName"><br><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="12" cols="75">
+        </textarea><br><br>
+        <label for="year">optional Year(s):</label><br>
+        <input type="text" name="year"><br><br>
+        <label for="year">File(s):</label><br>
+        <input type="file" name="file"><br>
+        <input type="submit" value="Create">
+    </form>
+
+    <button onclick="addFile()">Add File</button><br><br>
+
+    <script>
+
+        function addFile() {
+            const form = document.getElementById('artifactUploadForm');
+
+            // create a new input field
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('name', 'file1');
+
+            // append the new input field to the form
+            form.appendChild(input);
+        };
+
+    </script>
+
+    {% else %}
+
+    <form action="/Create_Artifact">
+        <button class="upload">Artifact</button>
+    </form>
+
+    <form action="/Create_Exibit">
+        <button class="upload">Exibit</button>
+    </form>
+
+    <form action="/Create_Timeline">
+        <button class="upload">Timeline</button>
+    </form>
+
+    <form action="/Create_Admin">
+        <button class="upload">Account</button>
+    </form>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,11 +1,133 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
+import flask
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SECRET_KEY'] = 'secretCey'
+login_manager = LoginManager(app)
+login_manager.init_app(app)
+db = SQLAlchemy(app)
+app.config["IMAGE_UPLOADS"] = "static\\assingment_img"
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+
+class Archeology(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+   year = db.Column(db.String(250), nullable=True)
+   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
+
+class ArcheologyColection(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   type = db.Column(db.String(50), nullable=False)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+
+class ArcheologyColectionArtifacts(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   colectionId = db.Column(db.Integer, db.ForeignKey(ArcheologyColection.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Archeology.id))
+
+class ArcheologyFiles(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   fileName = db.Column(db.String(25), nullable=False)
+   fileType = db.Column(db.String(25), nullable=False)
+   artifactId = db.Column(db.Integer, db.ForeignKey(Archeology.id))
+
+class Biology(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+   year = db.Column(db.String(250), nullable=True)
+   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
+
+class BiologyColection(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   type = db.Column(db.String(50), nullable=False)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+
+class BiologyColectionArtifacts(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   colectionId = db.Column(db.Integer, db.ForeignKey(BiologyColection.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Biology.id))
+
+class BiologyFiles(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   fileName = db.Column(db.String(25), nullable=False)
+   fileType = db.Column(db.String(25), nullable=False)
+   artifactId = db.Column(db.Integer, db.ForeignKey(Biology.id))
+
+class Geology(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+   year = db.Column(db.String(250), nullable=True)
+   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
+
+class GeologyColection(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   type = db.Column(db.String(50), nullable=False)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+
+class GeologyColectionArtifacts(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   colectionId = db.Column(db.Integer, db.ForeignKey(GeologyColection.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Geology.id))
+
+class GeologyFiles(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   fileName = db.Column(db.String(25), nullable=False)
+   fileType = db.Column(db.String(25), nullable=False)
+   artifactId = db.Column(db.Integer, db.ForeignKey(Geology.id))
+
+class Paleontology(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+   year = db.Column(db.String(250), nullable=True)
+   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
+
+class PaleontologyColection(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   type = db.Column(db.String(50), nullable=False)
+   name = db.Column(db.String(100), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+
+class PaleontologyColectionArtifacts(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   colectionId = db.Column(db.Integer, db.ForeignKey(PaleontologyColection.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Paleontology.id))
+
+class PaleontologyFiles(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   fileName = db.Column(db.String(25), nullable=False)
+   fileType = db.Column(db.String(25), nullable=False)
+   artifactId = db.Column(db.Integer, db.ForeignKey(Paleontology.id))
+
+with app.app_context():
+    db.create_all()
+
+@login_manager.user_loader
+def load_user(uid):
+    return User.query.get(uid)
 
 # ***************************** Home *****************************
 
 @app.route("/")
 def home():
+    if (User.query.filter_by(username="admin") == None):
+        admin = User(username = "admin", password = "123")
+        db.session.add(admin)
+        db.session.commit()
     return render_template('home.html', base="base.html")
 
 # ***************************** Archeology *****************************
@@ -88,12 +210,57 @@ def contactUs():
 
 @app.route("/History_Of_Museum")
 def history():
+<<<<<<< HEAD
     return render_template('3dmodel.html', base="base.html")
+=======
+    return render_template('history.html', base="base.html")
+>>>>>>> d4d3cc6a565fe8f4dd1f0600eeee973bfc30808d
 
-@app.route("/Admin_Login")
+@app.route("/Admin_Login", methods = ['GET', 'POST'])
 def adminLogin():
+    if request.method == 'POST':
+        username = request.form['username']
+        user = User.query.filter_by(username=username).first()
+        if user != None:
+            if request.form['password'] != user.password:
+                return render_template('login.html', base="base.html", error=1)
+            else:
+                login_user(user)
+                return flask.redirect('/')
+        return render_template('login.html', base="base.html", error=1)
     return render_template('login.html', base="base.html")
 
+# ***************************** Admin Options *****************************
+
+@app.route("/Upload")
+@login_required
+def upload():
+    return render_template('upload.html', base="base.html")
+
+@app.route("/Create_Admin", methods = ['GET', 'POST'])
+@login_required
+def createAdmin():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        newUser = User(username = username, password = password)
+        db.session.add(newUser)
+        db.session.commit()
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createAdmin = 1)
+
+@app.route("/Create_Artifact", methods = ['GET', 'POST'])
+@login_required
+def createArtifact():
+    if request.method == 'POST':
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createArtifact = 1)
+
+@app.route('/Logout')
+@login_required
+def logout():
+    logout_user()
+    return flask.redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
