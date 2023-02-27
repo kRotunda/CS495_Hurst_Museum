@@ -4,45 +4,68 @@
 
 {% block content %}
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
-	</head>
-	<body>
-		<script type="module">
-			import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
-			const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			
-			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-
-			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
-
-			camera.position.z = 5;
-
+<head>
+	<meta charset="utf-8">
+	<title>My first three.js app</title>
+	<style>
+		body {
+			margin: 0;
 		
+		}
+	</style>
+</head>
 
-			function animate() {
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
-				requestAnimationFrame( animate );
-				renderer.render( scene, camera );
+<body>
+	<script type="module">
+		import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+		import { OBJLoader } from 'https://unpkg.com/three/examples/jsm/loaders/OBJLoader.js';
+
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+		const renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		// Load the OBJ file
+		const loader = new OBJLoader();
+		loader.load(
+			'static/point.obj',
+			function (object) {
+				// Create a material for the model
+				const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+
+				// Create a mesh object from the loaded model geometry and material
+				const mesh = new THREE.Mesh(object.children[0].geometry, material);
+
+				// Add the mesh object to the scene
+				scene.add(mesh);
+			},
+			function (xhr) {
+				console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			},
+			function (error) {
+				console.log('An error occurred while loading the OBJ file: ' + error);
 			}
-			animate();
+		);
 
+		camera.position.z = 5;
 
+		function animate() {
+			requestAnimationFrame(animate);
 
-		</script>
-	</body>
+			if (mesh) {
+				mesh.rotation.x += 0.01;
+				mesh.rotation.y += 0.01;
+			}
+
+			renderer.render(scene, camera);
+		}
+		animate();
+
+	</script>
+</body>
+
 </html>
 {% endblock %}
