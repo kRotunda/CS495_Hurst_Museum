@@ -9,6 +9,10 @@
     {% if createAdmin %}
 
     <form action="/Create_Admin" method="post" class="admin">
+        <label for="firstname">Firstname:</label><br>
+        <input type="text" name="firstname"><br><br>
+        <label for="lastname">Lastname:</label><br>
+        <input type="text" name="lastname"><br><br>
         <label for="username">Username:</label><br>
         <input type="text" name="username"><br><br>
         <label for="password">password:</label><br>
@@ -27,31 +31,34 @@
             <option value="paleontology">Paleontology</option>
         </select><br><br>
         <label for="name">Artifact Name:</label><br>
-        <input type="text" name="artifactName"><br><br>
+        <input type="text" name="artifactName" required><br><br>
         <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="12" cols="75">
+        <textarea id="description" name="description" rows="12" cols="75" required>
         </textarea><br><br>
         <label for="year">optional Year(s):</label><br>
         <input type="text" name="year"><br><br>
         <label for="year">File(s):</label><br>
-        <input type="file" name="file"><br>
-        <input type="submit" value="Create">
-    </form>
+        <input type="file" name="file0"><br>
+    </form><br><br>
 
-    <button onclick="addFile()">Add File</button><br><br>
+    <button onclick="addFile()">Add File</button><br>
+    <button type="submit" form="artifactUploadForm" value="Submit">Create</button>
 
     <script>
 
+        fileCount = 0;
+
         function addFile() {
-            const form = document.getElementById('artifactUploadForm');
+            if (fileCount < 9){
+                const form = document.getElementById('artifactUploadForm');
 
-            // create a new input field
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('name', 'file1');
+                const input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('name', 'file'+fileCount);
+                fileCount++;
 
-            // append the new input field to the form
-            form.appendChild(input);
+                form.appendChild(input);
+            }
         };
 
     </script>
