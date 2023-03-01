@@ -31,6 +31,8 @@ class ArcheologyColection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
+   timeStart = db.Column(db.Integer, nullable=True)
+   timeEnd = db.Column(db.Integer, nullable=True)
    description = db.Column(db.String(1000), nullable=False)
 
 class ArcheologyColectionArtifacts(db.Model):
@@ -55,6 +57,8 @@ class BiologyColection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
+   timeStart = db.Column(db.Integer, nullable=True)
+   timeEnd = db.Column(db.Integer, nullable=True)
    description = db.Column(db.String(1000), nullable=False)
 
 class BiologyColectionArtifacts(db.Model):
@@ -79,6 +83,8 @@ class GeologyColection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
+   timeStart = db.Column(db.Integer, nullable=True)
+   timeEnd = db.Column(db.Integer, nullable=True)
    description = db.Column(db.String(1000), nullable=False)
 
 class GeologyColectionArtifacts(db.Model):
@@ -103,6 +109,8 @@ class PaleontologyColection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
+   timeStart = db.Column(db.Integer, nullable=True)
+   timeEnd = db.Column(db.Integer, nullable=True)
    description = db.Column(db.String(1000), nullable=False)
 
 class PaleontologyColectionArtifacts(db.Model):
@@ -269,11 +277,11 @@ def createArtifact():
             newArtifact = Paleontology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
 
 
-        for x in range(0,10):   
-            image = request.files['file'+str(x)]
-            if image:
-                filename = secure_filename(image.filename)
-                print(filename)
+        # for x in range(0,10):   
+        #     image = request.files['file'+str(x)]
+        #     if image:
+        #         filename = secure_filename(image.filename)
+        #         print(filename)
         
         
         # newImg = Image(ImageName = '-1', AssignmentId = newAssinmnet.id)
@@ -287,6 +295,56 @@ def createArtifact():
 
         return render_template('upload.html', base="base.html")
     return render_template('upload.html', base="base.html", createArtifact = 1)
+
+@app.route("/Create_Exibit", methods = ['GET', 'POST'])
+@login_required
+def createExibit():
+    if request.method == 'POST':
+        subject = request.form['subject']
+        name = request.form['exibitName']
+        description = request.form['description']
+        
+        
+        if subject == "archeology":
+            newExibit = ArcheologyColection(type = "Exibit", name = name, description = description)
+        if subject == "biology":
+            newExibit = BiologyColection(type = "Exibit", name = name, description = description)
+        if subject == "geology":
+            newExibit = GeologyColection(type = "Exibit", name = name, description = description)
+        if subject == "paleontology":
+            newExibit = PaleontologyColection(type = "Exibit", name = name, description = description)
+
+        
+        # db.session.add(newExibit)
+        # db.session.commit()
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createExibit = 1)
+
+@app.route("/Create_Timeline", methods = ['GET', 'POST'])
+@login_required
+def createTimeline():
+    if request.method == 'POST':
+        subject = request.form['subject']
+        name = request.form['exibitName']
+        description = request.form['description']
+        startYear = request.form['timeStart']
+        endYear = request.form['timeEnd']
+        
+        
+        if subject == "archeology":
+            newTimeline = ArcheologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+        if subject == "biology":
+            newTimeline = BiologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+        if subject == "geology":
+            newTimeline = GeologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+        if subject == "paleontology":
+            newTimeline = PaleontologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+
+        
+        # db.session.add(newTimeline)
+        # db.session.commit()
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createTimeline = 1)
 
 @app.route('/Logout')
 @login_required
