@@ -89,6 +89,17 @@ body {
   color: white;
 }
 
+.construction_image {
+  width: 100%;
+  height: 50%;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
 /***************************** Slideshow CSS *****************************/
 * {box-sizing:border-box}
 
