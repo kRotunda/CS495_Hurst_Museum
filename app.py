@@ -221,7 +221,11 @@ def contactUs():
 
 @app.route("/History_Of_Museum")
 def history():
+<<<<<<< HEAD
+    return render_template('3dmodel.html', base="base.html")
+=======
     return render_template('history.html', base="base.html")
+>>>>>>> d4d3cc6a565fe8f4dd1f0600eeee973bfc30808d
 
 @app.route("/Admin_Login", methods = ['GET', 'POST'])
 def adminLogin():
