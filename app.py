@@ -135,10 +135,6 @@ def load_user(uid):
 
 @app.route("/")
 def home():
-    if (User.query.filter_by(username="admin") == None):
-        admin = User(username = "admin", password = "123")
-        db.session.add(admin)
-        db.session.commit()
     return render_template('home.html', base="base.html")
 
 # ***************************** Archeology *****************************
@@ -221,11 +217,7 @@ def contactUs():
 
 @app.route("/History_Of_Museum")
 def history():
-<<<<<<< HEAD
-    return render_template('3dmodel.html', base="base.html")
-=======
     return render_template('history.html', base="base.html")
->>>>>>> d4d3cc6a565fe8f4dd1f0600eeee973bfc30808d
 
 @app.route("/Admin_Login", methods = ['GET', 'POST'])
 def adminLogin():
@@ -321,7 +313,7 @@ def createExibit():
         
         # db.session.add(newExibit)
         # db.session.commit()
-        return render_template('upload.html', base="base.html")
+        return render_template('upload.html', base="base.html", createExibit = 1, subject=subject)
     return render_template('upload.html', base="base.html", createExibit = 1)
 
 @app.route("/Create_Timeline", methods = ['GET', 'POST'])
@@ -347,7 +339,7 @@ def createTimeline():
         
         # db.session.add(newTimeline)
         # db.session.commit()
-        return render_template('upload.html', base="base.html")
+        return render_template('upload.html', base="base.html", createTimeline = 1, subject=subject)
     return render_template('upload.html', base="base.html", createTimeline = 1)
 
 @app.route('/Logout')

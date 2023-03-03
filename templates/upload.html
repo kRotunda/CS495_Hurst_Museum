@@ -63,7 +63,14 @@
 
     </script>
 
-    {% elif CreateExibit %}
+    {% elif createExibit %}
+
+        {% if subject %}
+            <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
+            <form action="/Create_Exibit" method="post" class="admin">
+                <input type="submit" value="Add to Exibit">
+            </form>
+        {% else %}
 
         <form action="/Create_Exibit" method="post" class="admin">
             <label for="subject">Choose Subject:</label>
@@ -76,12 +83,21 @@
             <label for="exibitName">Exibit Name:</label><br>
             <input type="text" name="exibitName" required><br><br>
             <label for="description">Description:</label><br>
-            <input type="text" name="description" required><br><br>
-            <!-- Create select artifact  -->
-            <input type="submit" value="Create">
+            <textarea id="description" name="description" rows="12" cols="75" required>
+            </textarea><br><br>
+            <input type="submit" value="Create and Select Artifacts">
         </form>
 
-    {% elif CreateTimeline %}
+        {% endif %}
+
+    {% elif createTimeline %}
+        
+        {% if subject %}
+            <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
+            <form action="/Create_Exibit" method="post" class="admin">
+                <input type="submit" value="Add to Timeline">
+            </form>
+        {% else %}
 
         <form action="/Create_Timeline" method="post" class="admin">
             <label for="subject">Choose Subject:</label>
@@ -94,14 +110,17 @@
             <label for="exibitName">Timeline Name:</label><br>
             <input type="text" name="exibitName" required><br><br>
             <label for="description">Description:</label><br>
-            <input type="text" name="description" required><br><br>
+            <textarea id="description" name="description" rows="12" cols="75" required>
+            </textarea><br><br>
             <label for="timeStart">Starting Year:</label><br>
             <input type="number" name="timeStart" required><br><br>
             <label for="timeEnd">Ending Year:</label><br>
-            <input type="text" name="timeEnd" required><br><br>
+            <input type="number" name="timeEnd" required><br><br>
             <!-- Create select artifact  -->
-            <input type="submit" value="Create">
+            <input type="submit" value="Create and Select Artifacts">
         </form>
+
+        {% endif %}
 
     {% else %}
 
