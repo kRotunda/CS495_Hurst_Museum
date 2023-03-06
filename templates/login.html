@@ -14,10 +14,16 @@
     <input type="submit" value="Login">
 </form>
 
-<button>Forgot username/password</button>
+<button onclick="sendEmail()">Forgot username/password</button>
 
 {% if error %}
   <p style="color:red;">ERROR: username/password incorrect</p>
 {% endif %}
+
+<script>
+  function sendEmail() {
+    console.log("function");
+  };
+</script>
 
 {% endblock %}
