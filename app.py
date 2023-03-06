@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(50), nullable=False)
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
 
 class Archeology(db.Model):
    id = db.Column(db.Integer, primary_key=True)
@@ -248,7 +249,8 @@ def createAdmin():
         password = request.form['password']
         firstname = request.form['firstname']
         lastname = request.form['lastname']
-        newUser = User(username = username, password = password, firstname = firstname, lastname = lastname)
+        email = request.form['email']
+        newUser = User(username = username, password = password, firstname = firstname, lastname = lastname, email = email)
         db.session.add(newUser)
         db.session.commit()
         return render_template('upload.html', base="base.html")
@@ -303,17 +305,24 @@ def createExibit():
         
         if subject == "archeology":
             newExibit = ArcheologyColection(type = "Exibit", name = name, description = description)
+            allArtifacts = Archeology.query.all()
         if subject == "biology":
             newExibit = BiologyColection(type = "Exibit", name = name, description = description)
+            allArtifacts = Biology.query.all()
         if subject == "geology":
             newExibit = GeologyColection(type = "Exibit", name = name, description = description)
+            allArtifacts = Geology.query.all()
         if subject == "paleontology":
             newExibit = PaleontologyColection(type = "Exibit", name = name, description = description)
+            allArtifacts = Paleontology.query.all()
 
+        if allArtifacts == None:
+            return render_template('upload.html', base="base.html", createExibit = 1, error="no artifacts")
         
         # db.session.add(newExibit)
         # db.session.commit()
-        return render_template('upload.html', base="base.html", createExibit = 1, subject=subject)
+
+        return render_template('upload.html', base="base.html", createExibit = 1, artifacts=allArtifacts)
     return render_template('upload.html', base="base.html", createExibit = 1)
 
 @app.route("/Create_Timeline", methods = ['GET', 'POST'])
@@ -329,17 +338,24 @@ def createTimeline():
         
         if subject == "archeology":
             newTimeline = ArcheologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+            allArtifacts = Archeology.query.all()
         if subject == "biology":
             newTimeline = BiologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+            allArtifacts = Biology.query.all()
         if subject == "geology":
             newTimeline = GeologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
+            allArtifacts = Geology.query.all()
         if subject == "paleontology":
             newTimeline = PaleontologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
-
+            allArtifacts = Paleontology.query.all()
         
+        if allArtifacts == None:
+            return render_template('upload.html', base="base.html", createTimeline = 1, error="no artifacts")
+
         # db.session.add(newTimeline)
         # db.session.commit()
-        return render_template('upload.html', base="base.html", createTimeline = 1, subject=subject)
+
+        return render_template('upload.html', base="base.html", createTimeline = 1, artifacts=allArtifacts)
     return render_template('upload.html', base="base.html", createTimeline = 1)
 
 @app.route('/Logout')

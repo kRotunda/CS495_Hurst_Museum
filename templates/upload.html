@@ -17,6 +17,8 @@
         <input type="text" name="username"><br><br>
         <label for="password">password:</label><br>
         <input type="password" name="password"><br><br>
+        <label for="password">email:</label><br>
+        <input type="text" name="email"><br><br>
         <input type="submit" value="Create">
     </form>
 
@@ -65,7 +67,11 @@
 
     {% elif createExibit %}
 
-        {% if subject %}
+        {% if error %}
+            <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a exibit</p>
+        {% else %}
+
+        {% if artifacts %}
             <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
             <form action="/Create_Exibit" method="post" class="admin">
                 <input type="submit" value="Add to Exibit">
@@ -92,7 +98,11 @@
 
     {% elif createTimeline %}
         
-        {% if subject %}
+        {% if error %}
+            <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a timeline</p>
+        {% else %}
+
+        {% if artifacts %}
             <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
             <form action="/Create_Exibit" method="post" class="admin">
                 <input type="submit" value="Add to Timeline">
@@ -116,7 +126,6 @@
             <input type="number" name="timeStart" required><br><br>
             <label for="timeEnd">Ending Year:</label><br>
             <input type="number" name="timeEnd" required><br><br>
-            <!-- Create select artifact  -->
             <input type="submit" value="Create and Select Artifacts">
         </form>
 
