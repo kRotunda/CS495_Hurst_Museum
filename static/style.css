@@ -2,6 +2,7 @@
 
 body {
   text-align: center;
+  
 }
 
 /***************************** NavBar *****************************/
@@ -107,14 +108,18 @@ body {
   max-width: 1000px;
   position: relative;
   margin: auto;
+  width: 700px; 
+  height: 500px;
+
 }
 
 .mySlides image{
   display: none;
-
+  padding:50px;
+  margin: 50px;
   object-fit: scale-down;
-  width: 1000px; 
-  height: 750px;
+  width: 500px; 
+  height: 300px;
 }
 
 .prev, .next {

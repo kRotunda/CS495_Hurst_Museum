@@ -47,14 +47,14 @@
     <button type="submit" form="artifactUploadForm" value="Submit">Create</button>
 
     <script>
-
+        
         fileCount = 0;
 
         function addFile() {
             if (fileCount < 9){
                 const form = document.getElementById('artifactUploadForm');
-
                 const input = document.createElement('input');
+                
                 input.setAttribute('type', 'file');
                 input.setAttribute('name', 'file'+fileCount);
                 fileCount++;
