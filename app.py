@@ -21,109 +21,35 @@ class User(UserMixin, db.Model):
     lastname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
 
-class Archeology(db.Model):
+class Artifacts(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String(100), nullable=False)
    description = db.Column(db.String(1000), nullable=False)
    year = db.Column(db.String(250), nullable=True)
+   subject = db.Column(db.String(50), nullable=False)
    uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
 
-class ArcheologyColection(db.Model):
+class Colection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
    timeStart = db.Column(db.Integer, nullable=True)
    timeEnd = db.Column(db.Integer, nullable=True)
    description = db.Column(db.String(1000), nullable=False)
+   subject = db.Column(db.String(50), nullable=False)
+   coverImageName = db.Column(db.String(25), nullable=False)
+   coverImageType = db.Column(db.String(25), nullable=False)
 
-class ArcheologyColectionArtifacts(db.Model):
+class ColectionArtifacts(db.Model):
    id = db.Column(db.Integer, primary_key=True)
-   colectionId = db.Column(db.Integer, db.ForeignKey(ArcheologyColection.id))
-   artifactId = db.Column(db.Integer, db.ForeignKey(Archeology.id))
+   colectionId = db.Column(db.Integer, db.ForeignKey(Colection.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Artifacts.id))
 
-class ArcheologyFiles(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   fileName = db.Column(db.String(25), nullable=False)
-   fileType = db.Column(db.String(25), nullable=False)
-   artifactId = db.Column(db.Integer, db.ForeignKey(Archeology.id))
-
-class Biology(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   name = db.Column(db.String(100), nullable=False)
-   description = db.Column(db.String(1000), nullable=False)
-   year = db.Column(db.String(250), nullable=True)
-   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
-
-class BiologyColection(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   type = db.Column(db.String(50), nullable=False)
-   name = db.Column(db.String(100), nullable=False)
-   timeStart = db.Column(db.Integer, nullable=True)
-   timeEnd = db.Column(db.Integer, nullable=True)
-   description = db.Column(db.String(1000), nullable=False)
-
-class BiologyColectionArtifacts(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   colectionId = db.Column(db.Integer, db.ForeignKey(BiologyColection.id))
-   artifactId = db.Column(db.Integer, db.ForeignKey(Biology.id))
-
-class BiologyFiles(db.Model):
+class Files(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    fileName = db.Column(db.String(25), nullable=False)
    fileType = db.Column(db.String(25), nullable=False)
-   artifactId = db.Column(db.Integer, db.ForeignKey(Biology.id))
-
-class Geology(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   name = db.Column(db.String(100), nullable=False)
-   description = db.Column(db.String(1000), nullable=False)
-   year = db.Column(db.String(250), nullable=True)
-   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
-
-class GeologyColection(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   type = db.Column(db.String(50), nullable=False)
-   name = db.Column(db.String(100), nullable=False)
-   timeStart = db.Column(db.Integer, nullable=True)
-   timeEnd = db.Column(db.Integer, nullable=True)
-   description = db.Column(db.String(1000), nullable=False)
-
-class GeologyColectionArtifacts(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   colectionId = db.Column(db.Integer, db.ForeignKey(GeologyColection.id))
-   artifactId = db.Column(db.Integer, db.ForeignKey(Geology.id))
-
-class GeologyFiles(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   fileName = db.Column(db.String(25), nullable=False)
-   fileType = db.Column(db.String(25), nullable=False)
-   artifactId = db.Column(db.Integer, db.ForeignKey(Geology.id))
-
-class Paleontology(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   name = db.Column(db.String(100), nullable=False)
-   description = db.Column(db.String(1000), nullable=False)
-   year = db.Column(db.String(250), nullable=True)
-   uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
-
-class PaleontologyColection(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   type = db.Column(db.String(50), nullable=False)
-   name = db.Column(db.String(100), nullable=False)
-   timeStart = db.Column(db.Integer, nullable=True)
-   timeEnd = db.Column(db.Integer, nullable=True)
-   description = db.Column(db.String(1000), nullable=False)
-
-class PaleontologyColectionArtifacts(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   colectionId = db.Column(db.Integer, db.ForeignKey(PaleontologyColection.id))
-   artifactId = db.Column(db.Integer, db.ForeignKey(Paleontology.id))
-
-class PaleontologyFiles(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   fileName = db.Column(db.String(25), nullable=False)
-   fileType = db.Column(db.String(25), nullable=False)
-   artifactId = db.Column(db.Integer, db.ForeignKey(Paleontology.id))
+   artifactId = db.Column(db.Integer, db.ForeignKey(Artifacts.id))
 
 with app.app_context():
     db.create_all()
@@ -265,14 +191,7 @@ def createArtifact():
         description = request.form['description']
         year = request.form['year']
 
-        if subject == "archeology":
-            newArtifact = Archeology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
-        if subject == "biology":
-            newArtifact = Biology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
-        if subject == "geology":
-            newArtifact = Geology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
-        if subject == "paleontology":
-            newArtifact = Paleontology(name = artifactName, description = description, year = year, uploadedBy = current_user.id)
+        newArtifact = Artifacts(name = artifactName, description = description, year = year, subject = subject, uploadedBy = current_user.id)
 
 
         # for x in range(0,10):   
@@ -301,20 +220,12 @@ def createExibit():
         subject = request.form['subject']
         name = request.form['exibitName']
         description = request.form['description']
+
+        image = request.files['coverImg']
+        filename = secure_filename(image.filename)
         
-        
-        if subject == "archeology":
-            newExibit = ArcheologyColection(type = "Exibit", name = name, description = description)
-            allArtifacts = Archeology.query.all()
-        if subject == "biology":
-            newExibit = BiologyColection(type = "Exibit", name = name, description = description)
-            allArtifacts = Biology.query.all()
-        if subject == "geology":
-            newExibit = GeologyColection(type = "Exibit", name = name, description = description)
-            allArtifacts = Geology.query.all()
-        if subject == "paleontology":
-            newExibit = PaleontologyColection(type = "Exibit", name = name, description = description)
-            allArtifacts = Paleontology.query.all()
+        newExibit = Colection(type = "Exibit", name = name, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+        allArtifacts = Artifacts.query.filter_by(subject=subject).all()
 
         if allArtifacts == None:
             return render_template('upload.html', base="base.html", createExibit = 1, error="no artifacts")
@@ -335,19 +246,11 @@ def createTimeline():
         startYear = request.form['timeStart']
         endYear = request.form['timeEnd']
         
+        image = request.files['coverImg']
+        filename = secure_filename(image.filename)
         
-        if subject == "archeology":
-            newTimeline = ArcheologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
-            allArtifacts = Archeology.query.all()
-        if subject == "biology":
-            newTimeline = BiologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
-            allArtifacts = Biology.query.all()
-        if subject == "geology":
-            newTimeline = GeologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
-            allArtifacts = Geology.query.all()
-        if subject == "paleontology":
-            newTimeline = PaleontologyColection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description)
-            allArtifacts = Paleontology.query.all()
+        newExibit = Colection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+        allArtifacts = Artifacts.query.filter_by(subject=subject).all()
         
         if allArtifacts == None:
             return render_template('upload.html', base="base.html", createTimeline = 1, error="no artifacts")
