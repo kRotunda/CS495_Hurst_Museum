@@ -218,3 +218,17 @@ body {
 form {
   display: inline-block; 
 }
+
+/***************************** History Page *****************************/
+.hist_title {
+
+}
+
+.hist_text {
+  width: 60%;
+  margin: auto;
+}
+
+.placeholder_img {
+  width: 40%;
+}
