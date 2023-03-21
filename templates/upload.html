@@ -24,7 +24,7 @@
 
     {% elif createArtifact %}
 
-    <form class="artifactUplad" id="artifactUploadForm" action="/Create_Artifact" method="post">
+    <form class="artifactUpload" id="artifactUploadForm" action="/Create_Artifact" method="post">
         <label for="subject">Choose Subject:</label>
         <select id="subject" name="subject">
             <option value="archeology">Archeology</option>
@@ -69,7 +69,7 @@
 
         {% if error %}
             <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a exibit</p>
-        {% else %}
+        {% endif %}
 
         {% if artifacts %}
             <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
@@ -91,6 +91,8 @@
             <label for="description">Description:</label><br>
             <textarea id="description" name="description" rows="12" cols="75" required>
             </textarea><br><br>
+            <label for="year">Cover Image:</label><br>
+            <input type="file" name="coverImg" required><br><br>
             <input type="submit" value="Create and Select Artifacts">
         </form>
 
@@ -100,7 +102,7 @@
         
         {% if error %}
             <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a timeline</p>
-        {% else %}
+        {% endif %}
 
         {% if artifacts %}
             <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
@@ -126,6 +128,8 @@
             <input type="number" name="timeStart" required><br><br>
             <label for="timeEnd">Ending Year:</label><br>
             <input type="number" name="timeEnd" required><br><br>
+            <label for="year">Cover Image:</label><br>
+            <input type="file" name="coverImg" required><br><br>
             <input type="submit" value="Create and Select Artifacts">
         </form>
 
