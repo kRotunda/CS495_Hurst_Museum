@@ -25,7 +25,7 @@ class Artifacts(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String(100), nullable=False)
    description = db.Column(db.String(1000), nullable=False)
-   year = db.Column(db.String(250), nullable=True)
+   timePeriod = db.Column(db.String(250), nullable=True)
    subject = db.Column(db.String(50), nullable=False)
    uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
 
@@ -33,12 +33,26 @@ class Colection(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    type = db.Column(db.String(50), nullable=False)
    name = db.Column(db.String(100), nullable=False)
-   timeStart = db.Column(db.Integer, nullable=True)
-   timeEnd = db.Column(db.Integer, nullable=True)
+   shortDescription = db.Column(db.String(150), nullable=False)
    description = db.Column(db.String(1000), nullable=False)
    subject = db.Column(db.String(50), nullable=False)
    coverImageName = db.Column(db.String(25), nullable=False)
    coverImageType = db.Column(db.String(25), nullable=False)
+
+class News(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(100), nullable=False)
+   shortDescription = db.Column(db.String(150), nullable=False)
+   description = db.Column(db.String(1000), nullable=False)
+   subject = db.Column(db.String(50), nullable=False)
+   coverImageName = db.Column(db.String(25), nullable=False)
+   coverImageType = db.Column(db.String(25), nullable=False)
+
+class NewsFiles(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   fileName = db.Column(db.String(25), nullable=False)
+   fileType = db.Column(db.String(25), nullable=False)
+   newsId = db.Column(db.Integer, db.ForeignKey(News.id))
 
 class ColectionArtifacts(db.Model):
    id = db.Column(db.Integer, primary_key=True)
@@ -191,7 +205,8 @@ def createArtifact():
         description = request.form['description']
         year = request.form['year']
 
-        newArtifact = Artifacts(name = artifactName, description = description, year = year, subject = subject, uploadedBy = current_user.id)
+        #may break if year == none
+        newArtifact = Artifacts(name = artifactName, description = description, timePeriod = year, subject = subject, uploadedBy = current_user.id)
 
 
         # for x in range(0,10):   
@@ -201,7 +216,7 @@ def createArtifact():
         #         print(filename)
         
         
-        # newImg = Image(ImageName = '-1', AssignmentId = newAssinmnet.id)
+        # newImg = NewsFiles(ImageName = '-1', newsid = newAssinmnet.id)
         
         # db.session.add(newImg)
         # db.session.commit()
@@ -219,12 +234,13 @@ def createExibit():
     if request.method == 'POST':
         subject = request.form['subject']
         name = request.form['exibitName']
+        shortDescription = request.form['shortDescription']
         description = request.form['description']
 
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
         
-        newExibit = Colection(type = "Exibit", name = name, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+        newExibit = Colection(type = "Exibit", name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
         allArtifacts = Artifacts.query.filter_by(subject=subject).all()
 
         if allArtifacts == None:
@@ -236,30 +252,62 @@ def createExibit():
         return render_template('upload.html', base="base.html", createExibit = 1, artifacts=allArtifacts)
     return render_template('upload.html', base="base.html", createExibit = 1)
 
-@app.route("/Create_Timeline", methods = ['GET', 'POST'])
+@app.route("/Create_News", methods = ['GET', 'POST'])
 @login_required
-def createTimeline():
+def createNews():
     if request.method == 'POST':
         subject = request.form['subject']
         name = request.form['exibitName']
+        shortDescription = request.form['shortDescription']
         description = request.form['description']
-        startYear = request.form['timeStart']
-        endYear = request.form['timeEnd']
-        
+
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
-        
-        newExibit = Colection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
-        allArtifacts = Artifacts.query.filter_by(subject=subject).all()
-        
-        if allArtifacts == None:
-            return render_template('upload.html', base="base.html", createTimeline = 1, error="no artifacts")
 
-        # db.session.add(newTimeline)
+        newNews = News(name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+
+        # for x in range(0,10):   
+        #     image = request.files['file'+str(x)]
+        #     if image:
+        #         filename = secure_filename(image.filename)
+        #         print(filename)
+        
+        
+        # newImg = NewsFiles(ImageName = '-1', AssignmentId = newAssinmnet.id)
+        
+        # db.session.add(newImg)
         # db.session.commit()
 
-        return render_template('upload.html', base="base.html", createTimeline = 1, artifacts=allArtifacts)
-    return render_template('upload.html', base="base.html", createTimeline = 1)
+        # db.session.add(newArtifact)
+        # db.session.commit()
+
+        return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", createNews = 1)
+
+# @app.route("/Create_Timeline", methods = ['GET', 'POST'])
+# @login_required
+# def createTimeline():
+#     if request.method == 'POST':
+#         subject = request.form['subject']
+#         name = request.form['exibitName']
+#         description = request.form['description']
+#         startYear = request.form['timeStart']
+#         endYear = request.form['timeEnd']
+        
+#         image = request.files['coverImg']
+#         filename = secure_filename(image.filename)
+        
+#         newExibit = Colection(type = "Timeline", name = name, timeStart = startYear, timeEnd = endYear, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+#         allArtifacts = Artifacts.query.filter_by(subject=subject).all()
+        
+#         if allArtifacts == None:
+#             return render_template('upload.html', base="base.html", createTimeline = 1, error="no artifacts")
+
+#         # db.session.add(newTimeline)
+#         # db.session.commit()
+
+#         return render_template('upload.html', base="base.html", createTimeline = 1, artifacts=allArtifacts)
+#     return render_template('upload.html', base="base.html", createTimeline = 1)
 
 @app.route('/Logout')
 @login_required

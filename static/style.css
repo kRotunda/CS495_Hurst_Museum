@@ -242,11 +242,20 @@ form {
 
 }
 
-.hist_text {
-  width: 60%;
-  margin: auto;
+.paragraphs {
+  line-height: 2;
+  display: flex;
+  text-align: left;
+  text-indent: 35px;
 }
 
-.placeholder_img {
-  width: 40%;
+.elements {
+  flex: 1;
+  width: 25%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+#img_1 {
+  height: auto;
 }
