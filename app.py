@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 import flask
+import os
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -11,7 +12,9 @@ app.config['SECRET_KEY'] = 'secretCey'
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 db = SQLAlchemy(app)
-app.config["IMAGE_UPLOADS"] = "static\\assingment_img"
+app.config["IMAGE_UPLOADS"] = "static\\artifact_img"
+app.config["NEWS_UPLOADS"] = "static\\news_img"
+app.config["EXIBIT_UPLOADS"] = "static\\exibit_img"
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -205,25 +208,28 @@ def createArtifact():
         description = request.form['description']
         year = request.form['year']
 
-        #may break if year == none
-        newArtifact = Artifacts(name = artifactName, description = description, timePeriod = year, subject = subject, uploadedBy = current_user.id)
 
+        if year == "":
+            newArtifact = Artifacts(name = artifactName, description = description, subject = subject, uploadedBy = current_user.id)
+        else:
+            newArtifact = Artifacts(name = artifactName, description = description, timePeriod = year, subject = subject, uploadedBy = current_user.id)
 
-        # for x in range(0,10):   
-        #     image = request.files['file'+str(x)]
-        #     if image:
-        #         filename = secure_filename(image.filename)
-        #         print(filename)
-        
-        
-        # newImg = NewsFiles(ImageName = '-1', newsid = newAssinmnet.id)
-        
-        # db.session.add(newImg)
-        # db.session.commit()
+        db.session.add(newArtifact)
+        db.session.commit()
 
-        # db.session.add(newArtifact)
-        # db.session.commit()
+        numFiles = request.form['numOfFiles']
 
+        for x in range(0,int(numFiles)):   
+            image = request.files['file'+str(x)]
+
+            filename = secure_filename(image.filename)
+            basedir = os.path.abspath(os.path.dirname(__file__))
+            image.save(os.path.join(basedir, app.config["IMAGE_UPLOADS"], filename))
+
+            newImg = Files(fileName = filename, fileType = filename.split('.')[-1], artifactId = newArtifact.id)
+            db.session.add(newImg)
+            db.session.commit()
+    
 
         return render_template('upload.html', base="base.html")
     return render_template('upload.html', base="base.html", createArtifact = 1)
@@ -239,47 +245,72 @@ def createExibit():
 
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
-        
-        newExibit = Colection(type = "Exibit", name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        image.save(os.path.join(basedir, app.config["EXIBIT_UPLOADS"], filename))
+
+        newExibit = Colection(type = "Exibit", name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1])
         allArtifacts = Artifacts.query.filter_by(subject=subject).all()
 
         if allArtifacts == None:
             return render_template('upload.html', base="base.html", createExibit = 1, error="no artifacts")
         
-        # db.session.add(newExibit)
-        # db.session.commit()
+        db.session.add(newExibit)
+        db.session.commit()
 
-        return render_template('upload.html', base="base.html", createExibit = 1, artifacts=allArtifacts)
+        return render_template('upload.html', base="base.html", createExibit = 1, artifacts=allArtifacts, exibitId = newExibit.id)
     return render_template('upload.html', base="base.html", createExibit = 1)
+
+@app.route("/Exibit_Add", methods = ['GET', 'POST'])
+@login_required
+def exibitAdd():
+    artifacts = []
+    artifacts = request.form.getlist('artifactSelect')
+    exibitId = request.form['exibitId']
+
+    for i in range(0, len(artifacts)):
+        addExibit = ColectionArtifacts(colectionId = exibitId, artifactId = artifacts[i])
+        db.session.add(addExibit)
+        db.session.commit()
+
+    return render_template('upload.html', base="base.html")
 
 @app.route("/Create_News", methods = ['GET', 'POST'])
 @login_required
 def createNews():
     if request.method == 'POST':
         subject = request.form['subject']
-        name = request.form['exibitName']
+        name = request.form['newsName']
         shortDescription = request.form['shortDescription']
         description = request.form['description']
 
+        # image = request.files['coverImg']
+        # filename = secure_filename(image.filename)
+        # basedir = os.path.abspath(os.path.dirname(__file__))
+        # image.save(os.path.join(basedir, app.config["NEWS_UPLOADS"], image))
+
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        image.save(os.path.join(basedir, app.config["NEWS_UPLOADS"], filename))
 
-        newNews = News(name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = type(image))
+        newNews = News(name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1])
 
-        # for x in range(0,10):   
-        #     image = request.files['file'+str(x)]
-        #     if image:
-        #         filename = secure_filename(image.filename)
-        #         print(filename)
-        
-        
-        # newImg = NewsFiles(ImageName = '-1', AssignmentId = newAssinmnet.id)
-        
-        # db.session.add(newImg)
-        # db.session.commit()
+        db.session.add(newNews)
+        db.session.commit()
 
-        # db.session.add(newArtifact)
-        # db.session.commit()
+        numFiles = request.form['numOfFiles']
+
+        if int(numFiles) > 0:
+            for x in range(0,int(numFiles)):   
+                image = request.files['file'+str(x)]
+
+                filename = secure_filename(image.filename)
+                basedir = os.path.abspath(os.path.dirname(__file__))
+                image.save(os.path.join(basedir, app.config["NEWS_UPLOADS"], filename))
+
+                newNewsFile = NewsFiles(fileName = filename, fileType = filename.split('.')[-1], newsId = newNews.id)
+                db.session.add(newNewsFile)
+                db.session.commit()
 
         return render_template('upload.html', base="base.html")
     return render_template('upload.html', base="base.html", createNews = 1)
