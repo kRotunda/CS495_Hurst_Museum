@@ -98,7 +98,8 @@ def archeologyGallery():
 
 @app.route("/Archeology_Exhibits")
 def archeologyExhibits():
-    return render_template('exhibits.html', base="base.html", subject="Archeology")
+    allExhibits = Colection.query.filter_by(subject="archeology").all()
+    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = allExhibits)
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():
