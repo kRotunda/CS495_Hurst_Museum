@@ -79,7 +79,9 @@ def load_user(uid):
 
 @app.route("/")
 def home():
-    return render_template('home.html', base="base.html")
+    news_collection = News.query.all()
+    
+    return render_template('home.html', base="base.html",news_collection = news_collection)
 
 # ***************************** Archeology *****************************
 

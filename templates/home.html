@@ -131,15 +131,20 @@
   </center>
   <br>
 
- 
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="200" width="300" ></a>
-      <h3>The Secrets of a Lost City: Exploring the Ruins of Petra</h3>
-      <p>Located in the deserts of Jordan, Petra is an ancient city that has fascinated archaeologists and hi</p>
+  {% for news in news_collection %} 
+
+    <div class="grid-item">
+      <div class="card">
+        <a href="{{news.link}}">
+          <img src="{/static/{news.coverImageName}}" alt="{{news.name}}" height="200" width="300" ></a>
+        <h3>{{news.name}}</h3>
+        <p>{{news.shortDescription}}</p>
+      </div>
     </div>
-  </div>
+
+ 
+  {% endfor %}
+  
 
   <div class="grid-item">
     <div class="card">
