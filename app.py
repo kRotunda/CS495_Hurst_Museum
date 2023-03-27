@@ -30,6 +30,8 @@ class Artifacts(db.Model):
    description = db.Column(db.String(1000), nullable=False)
    timePeriod = db.Column(db.String(250), nullable=True)
    subject = db.Column(db.String(50), nullable=False)
+   coverImageName = db.Column(db.String(25), nullable=False)
+   coverImageType = db.Column(db.String(25), nullable=False)
    uploadedBy = db.Column(db.Integer, db.ForeignKey(User.id))
 
 class Colection(db.Model):
@@ -91,7 +93,8 @@ def archeology():
 
 @app.route("/Archeology_Gallery")
 def archeologyGallery():
-    return render_template('gallery.html', base="base.html", subject="Archeology")
+    allArtifacts = Artifacts.query.filter_by(subject="archeology").all()
+    return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = allArtifacts)
 
 @app.route("/Archeology_Exhibits")
 def archeologyExhibits():
@@ -99,6 +102,10 @@ def archeologyExhibits():
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():
+    return render_template('timeline.html', base="base.html", subject="Archeology")
+
+@app.route("/Archeology_News")
+def archeologyNews():
     return render_template('timeline.html', base="base.html", subject="Archeology")
 
 # ***************************** Biology *****************************
@@ -119,6 +126,10 @@ def biologyExhibits():
 def biologyTimeline():
     return render_template('timeline.html', base="base.html", subject="Biology")
 
+@app.route("/Biology_News")
+def biologyNews():
+    return render_template('timeline.html', base="base.html", subject="Archeology")
+
 # ***************************** Geology *****************************
 
 @app.route("/Geology")
@@ -137,6 +148,10 @@ def geologyExhibits():
 def geologyTimeline():
     return render_template('timeline.html', base="base.html", subject="Geology")
 
+@app.route("/Geology_News")
+def geologyNews():
+    return render_template('timeline.html', base="base.html", subject="Archeology")
+
 # ***************************** Paleontology *****************************
 
 @app.route("/Paleontology")
@@ -154,6 +169,10 @@ def paleontologyExhibits():
 @app.route("/Paleontology_Timeline")
 def paleontologyTimeline():
     return render_template('timeline.html', base="base.html", subject="Paleontology")
+
+@app.route("/Paleontology_News")
+def paleontologyNews():
+    return render_template('timeline.html', base="base.html", subject="Archeology")
 
 # ***************************** About Us *****************************
 
@@ -210,11 +229,15 @@ def createArtifact():
         description = request.form['description']
         year = request.form['year']
 
+        image = request.files['coverImg']
+        filename = secure_filename(image.filename)
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        image.save(os.path.join(basedir, app.config["EXIBIT_UPLOADS"], filename))
 
         if year == "":
-            newArtifact = Artifacts(name = artifactName, description = description, subject = subject, uploadedBy = current_user.id)
+            newArtifact = Artifacts(name = artifactName, description = description, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1], uploadedBy = current_user.id)
         else:
-            newArtifact = Artifacts(name = artifactName, description = description, timePeriod = year, subject = subject, uploadedBy = current_user.id)
+            newArtifact = Artifacts(name = artifactName, description = description, timePeriod = year, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1], uploadedBy = current_user.id)
 
         db.session.add(newArtifact)
         db.session.commit()
@@ -284,11 +307,6 @@ def createNews():
         name = request.form['newsName']
         shortDescription = request.form['shortDescription']
         description = request.form['description']
-
-        # image = request.files['coverImg']
-        # filename = secure_filename(image.filename)
-        # basedir = os.path.abspath(os.path.dirname(__file__))
-        # image.save(os.path.join(basedir, app.config["NEWS_UPLOADS"], image))
 
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
