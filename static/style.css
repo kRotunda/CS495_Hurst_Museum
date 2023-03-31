@@ -257,9 +257,7 @@ form {
 }
 
 /***************************** History Page *****************************/
-.hist_title {
 
-}
 
 .paragraphs {
   line-height: 2;
@@ -277,4 +275,23 @@ form {
 
 #img_1 {
   height: auto;
+}
+
+/***************************** Gallery Page *****************************/
+
+.galleryGrid{
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.galleryArtifact{
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
 }

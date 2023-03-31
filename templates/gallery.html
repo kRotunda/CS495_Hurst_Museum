@@ -15,12 +15,22 @@
       </div>
 
       {% if allArtifacts %}
-        {% for artifact in allArtifacts %}
-          <div class="gallery">
-            <img src="/static/artifact_img/{{artifact.coverImageName}}" width="250" height="250">
-            <h1>{{ artifact.name }}</h1><br>
-          </div>
-        {% endfor %}
+        <div class="galleryGrid">
+          {% for artifact in allArtifacts %}
+            <div class="galleryArtifact">
+              <img src="/static/artifact_img/{{artifact.coverImageName}}" width="250" height="250">
+              <h1>{{ artifact.name }}</h1><br>
+            </div>
+          {% endfor %}
+
+          {% for i in range(nextPage) %}
+            {% if i == 0%}
+              <h1>current Page Button</h1>
+            {% else %}
+              <h1>next Page Button</h1>
+            {% endif %}
+          {% endfor %}
+        </div>
       {% else %}
         <div class="construction_image">
           <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
