@@ -93,12 +93,17 @@ def archeology():
 
 @app.route("/Archeology_Gallery")
 def archeologyGallery():
+    artifactArray = []
     allArtifacts = Artifacts.query.filter_by(subject="archeology").all()
-    return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = allArtifacts)
+    for i in range(0, len(allArtifacts), 15):
+        artifactArray.append(allArtifacts[i:i+15])
+    print(artifactArray)
+    return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
 
 @app.route("/Archeology_Exhibits")
 def archeologyExhibits():
-    return render_template('exhibits.html', base="base.html", subject="Archeology")
+    allExhibits = Colection.query.filter_by(subject="archeology").all()
+    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = allExhibits)
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():

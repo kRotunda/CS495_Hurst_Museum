@@ -10,12 +10,23 @@
         <a href="/{{ subject }}">Overview</a>
         <a href="/{{ subject }}_Gallery">Gallery</a>
         <a href="/{{ subject }}_Exhibits" class="active">Exhibits</a>
-        <a href="/{{ subject }}_Timeline">Timeline</a>
+        <a href="/{{ subject }}_News">News/Events</a>
+        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
       </div>
 
-      <div class="construction_image">
-        <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
-      </div>
+      {% if allExhibits %}
+        {% for exhibits in allExhibits %}
+          <div class="gallery">
+            <h1>{{ Exhibits.name }}</h1><br>
+            <img src="/static/exibit_img/{{Exhibits.coverImageName}}" width="250" height="250">
+            <h2>{{ shortDescription }}</h2>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="construction_image">
+          <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
+        </div>
+      {% endif %}
     </div>
 
 {% endblock %}
