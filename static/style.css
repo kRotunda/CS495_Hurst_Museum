@@ -307,19 +307,19 @@ form {
 .elements {
   flex: 1;
   width: 25%;
-  padding-left: 3%;
-  padding-right: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 #img_1 {
-  height: auto;
+  height: 15%;
 }
 
 /***************************** Gallery Page *****************************/
 
 .galleryGrid{
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: auto auto auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-items: stretch;
