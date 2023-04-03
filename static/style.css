@@ -1,10 +1,10 @@
 
-
 .header {
   display: flex;
   align-items: center;
   justify-content: center;
   background-image: url('/static/footer-background.jpg');
+  
 }
 
 /***************************** All Page Body *****************************/
@@ -132,30 +132,41 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 /***************************** Footer *****************************/
 
-footer{
-  background-image: url('/static/footer-background.jpg');
-  color: white;
-  text-align: center;
-  padding: 10px;
+footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.footer-left img{
-  display: block;
+.footer-left img {
   max-width: 100%;
-  height: auto;
 }
 
-.footer-center{
-  text-align: center;
-  margin: 0px;
-  display: block;
+.footer-middle p {
+  margin: 0 0 10px;
 }
 
-.footer-right{
-  display: block;
+.footer-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-right li {
+  margin-bottom: 10px;
+}
+
+.footer-right a {
+  color: #555;
+  text-decoration: none;
+}
+
+.footer-right a:hover {
+  color: #000;
 }
 
 
