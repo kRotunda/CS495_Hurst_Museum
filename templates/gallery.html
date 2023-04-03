@@ -23,12 +23,10 @@
             </div>
           {% endfor %}
 
-          {% for i in range(nextPage) %}
-            {% if i == 0%}
-              <h1>current Page Button</h1>
-            {% else %}
-              <h1>next Page Button</h1>
-            {% endif %}
+          {% for i in range(1, nextPage+1) %}
+            <form action="/Archeology_Gallery" method="post">
+              <input type="submit" value="{{ i }}" name="currentPage" />
+            </form>
           {% endfor %}
         </div>
       {% else %}

@@ -91,19 +91,25 @@ def home():
 def archeology():
     return render_template('overview.html', base="base.html", subject="Archeology")
 
-@app.route("/Archeology_Gallery")
+@app.route("/Archeology_Gallery", methods = ['GET', 'POST'])
 def archeologyGallery():
     artifactArray = []
     allArtifacts = Artifacts.query.filter_by(subject="archeology").all()
     for i in range(0, len(allArtifacts), 15):
         artifactArray.append(allArtifacts[i:i+15])
-    print(artifactArray)
+    if request.method == 'POST':
+        currentPage = request.form['currentPage']
+        print(currentPage)
+        return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[int(currentPage)-1], nextPage = len(artifactArray), currentPage = currentPage)
     return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
 
 @app.route("/Archeology_Exhibits")
 def archeologyExhibits():
+    exhibitsArray = []
     allExhibits = Colection.query.filter_by(subject="archeology").all()
-    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = allExhibits)
+    for i in range(0, len(allExhibits), 15):
+        exhibitsArray.append(allExhibits[i:i+15])
+    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray, nextPage = len(exhibitsArray))
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():

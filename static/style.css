@@ -308,7 +308,7 @@ form {
 
 .galleryGrid{
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: auto auto auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-items: stretch;
