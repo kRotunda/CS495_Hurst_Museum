@@ -3,43 +3,70 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Welcome to Western Colorado's CT Hurst Virtual Museum</h1>
-<h2>Travel through History here!</h2>
-<br><br>
+<style>
+
+  /*  -------News Items -------------------------------------------- */
+
+  .news-container {
+    width: 100%;
+    margin: 4rem auto;
+    background-color: antiquewhite;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto auto;
+  }
+
+  .news-items{
+    padding: 2rem;
+    box-shadow: 0 0 ,.4rem,.4rem black;
+    border: 2px solid black;
+    margin:10px;
+  }
+
+  .news-items:hover{
+    background-color: bisque;
+  }
+
+  .news-items-heading{
+    color: red;
+    margin-bottom: .5rem;
+  }
+
+
+
+  /* ----------quick lines------------------------------------- */
+
+
+  .quick-links {
+    width: 100%;
+    margin: 4rem auto;
+    background-color: antiquewhite;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto auto;
+  }
+
+  .quicklink-items{
+    padding: 2rem;
+    box-shadow: 0 0 ,.4rem,.4rem black;
+    border: 2px solid black;
+    margin:10px;
+  }
+
+  .quicklinks-items:hover{
+    background-color: bisque;
+  }
+
+  .quicklinks-items-heading{
+    color: red;
+    margin-bottom: .5rem;
+  }
+
+</style>
+
+<h1 class="heading">Gunnison, Colorado, has fascinating glimpse into the region's rich history and the diverse cultures that have called it home over the centuries.</h1>
 <div align="left" class="slideshow-container">
   <!-- Full-width images with number and caption text -->
-
-  <style>
-
-    /*  -------News Items -------------------------------------------- */
-
-    .news-container {
-      width: 100%;
-      margin: 4rem auto;
-      background-color: antiquewhite;
-      display: grid;
-      align-items: center;
-      grid-template-columns: auto auto auto auto;
-    }
-
-    .news-items{
-      padding: 2rem;
-      box-shadow: 0 0 ,.4rem,.4rem black;
-      border: 2px solid black;
-      margin:10px;
-    }
-
-    .news-items:hover{
-      background-color: bisque;
-    }
-
-    .news-items-heading{
-      color: red;
-      margin-bottom: .5rem;
-    }
-  </style>
-
-
   <div class="mySlides fade">
     <div class="numbertext">1 / 6</div>
     <img src="/static/slideshow/cave.jpg" style="width:100%">
@@ -125,8 +152,31 @@
   }
 </script>
 
-<div class="news-container">
+<div class="quick-links">
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
 
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
+
+
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
+
+
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
+
+</div>
+
+<hr style="color:white;" >
+<h1 class="heading">Current Events</h1>
+
+<div class="news-container">
   <div class="news-items">
     <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
     <h3 class="news-item-heading">news title</h3>

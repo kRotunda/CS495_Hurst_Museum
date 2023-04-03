@@ -11,6 +11,15 @@
 
 body {
   text-align: center;
+  background-image: url('/static/pexels.jpeg');
+  background-color: black;
+  height: 1000px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.heading{
+  color: white;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
@@ -141,7 +150,7 @@ footer{
 
 .footer-center{
   text-align: center;
-  margin: 5px;
+  margin: 0px;
   display: block;
 }
 
@@ -179,7 +188,7 @@ footer{
   width: auto;
   margin-top: -22px;
   padding: 16px;
-  color: rgba(0,0,0,0.8);
+  color: whitesmoke;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
@@ -197,7 +206,7 @@ footer{
 }
 
 .text {
-  color: rgba(80,80,80,0.8);;
+  color: whitesmoke;
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
