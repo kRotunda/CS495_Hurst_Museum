@@ -10,30 +10,32 @@
   <!-- Full-width images with number and caption text -->
 
   <style>
-    .grid-container {
+
+    /*  -------News Items -------------------------------------------- */
+
+    .news-container {
+      width: 100%;
+      margin: 4rem auto;
+      background-color: antiquewhite;
       display: grid;
-      grid-template-columns: auto auto auto;
-      background-color: white;
-      padding: 10px;
-      margin: 10px;
-      overflow: auto;
       align-items: center;
+      grid-template-columns: auto auto auto auto;
     }
 
-    .grid-item {
-      background-color: white;
-      padding: 10px;
-      font-size: 25px;
-      text-align: center;
-      margin: 10px;
+    .news-items{
+      padding: 2rem;
+      box-shadow: 0 0 ,.4rem,.4rem black;
+      border: 2px solid black;
+      margin:10px;
     }
 
-    .card h3 {
-      font-size: large;
+    .news-items:hover{
+      background-color: bisque;
     }
 
-    .card p {
-      font-size: medium;
+    .news-items-heading{
+      color: red;
+      margin-bottom: .5rem;
     }
   </style>
 
@@ -123,97 +125,50 @@
   }
 </script>
 
+<div class="news-container">
 
+  <div class="news-items">
+    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
+    <h3 class="news-item-heading">news title</h3>
+    <p class="news-item-body">body</p>
+    <p class="news-item-date">03-23-23</p>
+  </div>
 
-<div class="grid-container">
-  <br>
-  <center>
-    <h1>Recent Post</h1>
-  </center>
-  <br>
+  <div class="news-items">
+    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
+    <h3 class="news-item-heading">News Heading</h3>
+    <p class="news-item-body">This is the news</p>
+    <p class="news-item-date">03-23-23</p>
+  </div>
+
+  <div class="news-items">
+    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
+    <h3 class="news-item-heading">News Heading</h3>
+    <p class="news-item-body">This is the news</p>
+    <p class="news-item-date">03-23-23</p>
+  </div>
+
+  <div class="news-items">
+    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
+    <h3 class="news-item-heading">News Heading</h3>
+    <p class="news-item-body">This is the news</p>
+    <p class="news-item-date">03-23-23</p>
+  </div>
+
 
   {% for news in news_collection %} 
 
-    <div class="grid-item">
-      <div class="card">
-        <a href="{{news.link}}">
-          <img src="{/static/{news.coverImageName}}" alt="{{news.name}}" height="200" width="300" ></a>
-        <h3>{{news.name}}</h3>
-        <p>{{news.shortDescription}}</p>
-      </div>
-    </div>
-
+  <div class="news-items">
+    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="200" width="300" >
+    <h3 class="news-item-heading">{{news.name}}</h3>
+    <p class="news-item-body">{{news.shortDescription}}</p>
+    <p class="news-item-date">03-23-23</p>
+  </div>
  
   {% endfor %}
-  
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="200" width="300" >
-      <h3>The Secrets of a Lost City: Exploring the Ruins of Petra</h3>
-      <p>Located in the deserts of Jordan, Petra is an ancient city that has fascinated archaeologists and hi</p>
-    </a>
-    </div>
-  </div>
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="200" width="300" ></a>
-      <h3>The Secrets of a Lost City: Exploring the Ruins of Petra</h3>
-      <p>Located in the deserts of Jordan, Petra is an ancient city that has fascinated archaeologists and hi</p>
-    </div>
-  </div>
-
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src="/static/slideshow/cave.jpg" alt="image" height="200" width="300" ></a>
-      <h3>Heading</h3>
-      <p>Some text</p>
-    </div>
-  </div>
-
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src="/static/slideshow/cave.jpg" alt="image" height="200" width="300" ></a>
-      <h3>Heading</h3>
-      <p>Some text</p>
-    </div>
-  </div>
-
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src="/static/slideshow/cave.jpg" alt="image" height="200" width="300" ></a>
-      <h3>Heading</h3>
-      <p>Some text</p>
-    </div>
-  </div>
-
-
-  <div class="grid-item">
-    <div class="card">
-      <a href="post1.html">
-        <img src="/static/slideshow/cave.jpg" alt="image" height="200" width="300" ></a>
-      <h3>Heading</h3>
-      <p>Some text</p>
-    </div>
-  </div>
-
-
-
-
 
 
 </div>
-
-
 
 
 
