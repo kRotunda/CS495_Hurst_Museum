@@ -333,3 +333,90 @@ form {
   font-size: 30px;
   text-align: center;
 }
+/*  -------News Items -------------------------------------------- */
+
+.news-container {
+  width: 100%;
+  margin: 4rem auto;
+  background-color: antiquewhite;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto auto;
+}
+
+.news-items{
+  padding: 2rem;
+  box-shadow: 0 0 ,.4rem,.4rem black;
+  border: 2px solid black;
+  margin:10px;
+}
+
+.news-items:hover{
+  background-color: bisque;
+}
+
+.news-items-heading{
+  color: red;
+  margin-bottom: .5rem;
+}
+
+
+
+/* ----------quick lines------------------------------------- */
+
+
+.quick-links {
+  width: 100%;
+  margin: 4rem auto;
+  background-color: antiquewhite;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto auto;
+}
+
+.quicklink-items{
+  padding: 2rem;
+  box-shadow: 0 0 ,.4rem,.4rem black;
+  border: 2px solid black;
+  margin:10px;
+}
+
+.quicklinks-items:hover{
+  background-color: bisque;
+}
+
+.quicklinks-items-heading{
+  color: red;
+  margin-bottom: .5rem;
+}
+
+
+
+/* ------------------------------------------------------------ */
+
+.gallery-container {
+  width: 100%;
+  margin: 4rem auto;
+  background-color: antiquewhite;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto auto;
+  overflow:scroll;
+}
+
+.gallery-items{
+  padding: 2rem;
+  box-shadow: 0 0 ,.4rem,.4rem black;
+  border: 2px solid black;
+  margin:10px;
+}
+
+.gallery-items:hover{
+  background-color: bisque;
+}
+
+.gallery-items-heading{
+  color: red;
+  margin-bottom: .5rem;
+}
+

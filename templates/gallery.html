@@ -15,10 +15,11 @@
       </div>
 
       {% if allArtifacts %}
-        <div class="galleryGrid">
+        <div class="gallery-container">
           {% for artifact in allArtifacts %}
-            <div class="galleryArtifact">
-              <img src="/static/artifact_img/{{artifact.coverImageName}}" width="250" height="250">
+
+            <div class="gallery-items">
+              <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
               <h1>{{ artifact.name }}</h1><br>
             </div>
           {% endfor %}
