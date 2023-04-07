@@ -16,6 +16,7 @@ body {
   height: 1000px;
   background-repeat: no-repeat;
   background-size: cover;
+  color: white;
 }
 
 .heading{
@@ -101,6 +102,11 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 /***************************** vertical nav-bar subHome *****************************/
+.vertical-menu{
+
+  margin-top: 80px;
+}
+
 
 .vertical-menu a {
   background-color: #eee;
@@ -126,10 +132,15 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 .container {
-  height: 100%;
-  width: 100%;
   display: flex;
+  flex-direction: row;
 }
+
+.main-content {
+  width: 80%;
+}
+
+
 /***************************** Footer *****************************/
 
 footer {
@@ -400,8 +411,8 @@ form {
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto auto;
-  overflow:scroll;
+  grid-template-columns: auto auto auto;
+  margin: 5px;
 }
 
 .gallery-items{

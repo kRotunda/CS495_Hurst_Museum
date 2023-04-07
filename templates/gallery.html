@@ -3,37 +3,39 @@
 {% block title %} {{ subject }} {% endblock %}
 
 {% block content %}
-    <h1 align="left">{{ subject }} Gallery</h1>
+<div class="container">
+  <div class="vertical-menu">
+    <a href="/{{ subject }}">Overview</a>
+    <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
+    <a href="/{{ subject }}_Exhibits">Exhibits</a>
+    <a href="/{{ subject }}_News">News/Events</a>
+    <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+  </div>
 
-    <div class="container">
-      <div class="vertical-menu">
-        <a href="/{{ subject }}">Overview</a>
-        <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
-        <a href="/{{ subject }}_Exhibits">Exhibits</a>
-        <a href="/{{ subject }}_News">News/Events</a>
-        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+  <div class="main-content">
+    <h1 align="center" style="color:white">{{ subject }} Gallery</h1>
+  
+    {% if allArtifacts %}
+    <div class="gallery-container">
+      {% for artifact in allArtifacts %}
+
+      <div class="gallery-items">
+        <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
+        <h1>{{ artifact.name }}</h1><br>
       </div>
-
-      {% if allArtifacts %}
-        <div class="gallery-container">
-          {% for artifact in allArtifacts %}
-
-            <div class="gallery-items">
-              <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
-              <h1>{{ artifact.name }}</h1><br>
-            </div>
-          {% endfor %}
-
-          {% for i in range(1, nextPage+1) %}
-            <form action="/Archeology_Gallery" method="post">
-              <input type="submit" value="{{ i }}" name="currentPage" />
-            </form>
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="construction_image">
-          <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
-        </div>
-      {% endif %}
+      {% endfor %}
     </div>
+    {% else %}
+    <div class="construction_image">
+      <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
+    </div>
+    {% endif %}
+
+    {% for i in range(1, nextPage+1) %}
+    <form action="/Archeology_Gallery" method="post">
+      <input type="submit" value="{{ i }}" name="currentPage" />
+    </form>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
