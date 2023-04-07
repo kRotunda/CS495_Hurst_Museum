@@ -111,7 +111,7 @@ def archeologyExhibits():
     if request.method == 'POST':
         currentPage = request.form['currentPage']
         return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray[int(currentPage)-1], nextPage = len(exhibitsArray), currentPage = currentPage)
-    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray, nextPage = len(exhibitsArray))
+    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray[0], nextPage = len(exhibitsArray))
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():
@@ -126,7 +126,7 @@ def archeologyNews():
     if request.method == 'POST':
         currentPage = request.form['currentPage']
         return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
-    return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray, nextPage = len(newsArray))
+    return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray[0], nextPage = len(newsArray))
 
 # ***************************** Biology *****************************
 
