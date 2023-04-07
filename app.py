@@ -99,25 +99,34 @@ def archeologyGallery():
         artifactArray.append(allArtifacts[i:i+15])
     if request.method == 'POST':
         currentPage = request.form['currentPage']
-        print(currentPage)
         return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[int(currentPage)-1], nextPage = len(artifactArray), currentPage = currentPage)
     return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
 
-@app.route("/Archeology_Exhibits")
+@app.route("/Archeology_Exhibits", methods = ['GET', 'POST'])
 def archeologyExhibits():
     exhibitsArray = []
     allExhibits = Colection.query.filter_by(subject="archeology").all()
     for i in range(0, len(allExhibits), 15):
         exhibitsArray.append(allExhibits[i:i+15])
+    if request.method == 'POST':
+        currentPage = request.form['currentPage']
+        return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray[int(currentPage)-1], nextPage = len(exhibitsArray), currentPage = currentPage)
     return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray, nextPage = len(exhibitsArray))
 
 @app.route("/Archeology_Timeline")
 def archeologyTimeline():
     return render_template('timeline.html', base="base.html", subject="Archeology")
 
-@app.route("/Archeology_News")
+@app.route("/Archeology_News", methods = ['GET', 'POST'])
 def archeologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archeology")
+    newsArray = []
+    allNews = News.query.filter_by(subject="archeology").all()
+    for i in range(0, len(allNews), 15):
+        newsArray.append(allNews[i:i+15])
+    if request.method == 'POST':
+        currentPage = request.form['currentPage']
+        return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
+    return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray, nextPage = len(newsArray))
 
 # ***************************** Biology *****************************
 
