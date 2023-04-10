@@ -91,71 +91,41 @@
   }
 </script>
 
-<div class="quick-links">
-  <div class="quicklink-items">
-    <h2 class="quicklinks-item-heading">Quick Links</h2>
-  </div>
-
-  <div class="quicklink-items">
-    <h2 class="quicklinks-item-heading">Quick Links</h2>
-  </div>
-
-
-  <div class="quicklink-items">
-    <h2 class="quicklinks-item-heading">Quick Links</h2>
-  </div>
-
-
-  <div class="quicklink-items">
-    <h2 class="quicklinks-item-heading">Quick Links</h2>
-  </div>
-
-</div>
-
 <hr style="color:white;" >
 <h1 class="heading">Current Events</h1>
 
 <div class="news-container">
-  <div class="news-items">
-    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
-    <h3 class="news-item-heading">news title</h3>
-    <p class="news-item-body">body</p>
-    <p class="news-item-date">03-23-23</p>
-  </div>
-
-  <div class="news-items">
-    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
-    <h3 class="news-item-heading">News Heading</h3>
-    <p class="news-item-body">This is the news</p>
-    <p class="news-item-date">03-23-23</p>
-  </div>
-
-  <div class="news-items">
-    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
-    <h3 class="news-item-heading">News Heading</h3>
-    <p class="news-item-body">This is the news</p>
-    <p class="news-item-date">03-23-23</p>
-  </div>
-
-  <div class="news-items">
-    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="150" width="200" >
-    <h3 class="news-item-heading">News Heading</h3>
-    <p class="news-item-body">This is the news</p>
-    <p class="news-item-date">03-23-23</p>
-  </div>
-
-
   {% for news in news_collection %} 
 
   <div class="news-items">
-    <img src=" https://cdn.britannica.com/88/189788-050-9B5DB3A4/Al-Dayr-Petra-Jordan.jpg" alt="Ruins in the desert" height="200" width="300" >
+    <img src="static/news_img/{{news.coverImageName}}" height="200" width="300" >
     <h3 class="news-item-heading">{{news.name}}</h3>
     <p class="news-item-body">{{news.shortDescription}}</p>
-    <p class="news-item-date">03-23-23</p>
   </div>
  
   {% endfor %}
+</div>
 
+<div class="quick-links">
+  <a href="https://western.edu">
+  <div class="quicklink-items">
+      <h2 class="quicklinks-item-heading">Western Colorado</h2>
+  </div>
+  </a>
+
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
+
+
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
+
+
+  <div class="quicklink-items">
+    <h2 class="quicklinks-item-heading">Quick Links</h2>
+  </div>
 
 </div>
 

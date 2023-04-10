@@ -81,52 +81,64 @@ def load_user(uid):
 
 @app.route("/")
 def home():
-    news_collection = News.query.all()
+    news_collection = News.query.order_by(News.id.desc()).limit(4).all()
     
     return render_template('home.html', base="base.html",news_collection = news_collection)
 
-# ***************************** Archeology *****************************
+# ***************************** Archaeology *****************************
 
-@app.route("/Archeology")
-def archeology():
-    return render_template('overview.html', base="base.html", subject="Archeology")
+@app.route("/Archaeology")
+def archaeology():
+    return render_template('overview.html', base="base.html", subject="Archaeology")
 
-@app.route("/Archeology_Gallery", methods = ['GET', 'POST'])
-def archeologyGallery():
+@app.route("/Archaeology_Gallery", methods = ['GET', 'POST'])
+def archaeologyGallery():
     artifactArray = []
-    allArtifacts = Artifacts.query.filter_by(subject="archeology").all()
+    allArtifacts = Artifacts.query.filter_by(subject="archaeology").all()
+    if len(allArtifacts) == 0:
+        return render_template('gallery.html', base="base.html", subject="Archaeology")
     for i in range(0, len(allArtifacts), 15):
         artifactArray.append(allArtifacts[i:i+15])
     if request.method == 'POST':
         currentPage = request.form['currentPage']
-        return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[int(currentPage)-1], nextPage = len(artifactArray), currentPage = currentPage)
-    return render_template('gallery.html', base="base.html", subject="Archeology", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
+        return render_template('gallery.html', base="base.html", subject="Archaeology", allArtifacts = artifactArray[int(currentPage)-1], nextPage = len(artifactArray), currentPage = currentPage)
+    return render_template('gallery.html', base="base.html", subject="Archaeology", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
 
-@app.route("/Archeology_Exhibits", methods = ['GET', 'POST'])
-def archeologyExhibits():
+@app.route("/Archaeology_Exhibits", methods = ['GET', 'POST'])
+def archaeologyExhibits():
     exhibitsArray = []
-    allExhibits = Colection.query.filter_by(subject="archeology").all()
+    allExhibits = Colection.query.filter_by(subject="archaeology").all()
+    if len(allExhibits) == 0:
+        return render_template('exhibits.html', base="base.html", subject="Archaeology")
     for i in range(0, len(allExhibits), 15):
         exhibitsArray.append(allExhibits[i:i+15])
     if request.method == 'POST':
         currentPage = request.form['currentPage']
-        return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray[int(currentPage)-1], nextPage = len(exhibitsArray), currentPage = currentPage)
-    return render_template('exhibits.html', base="base.html", subject="Archeology", allExhibits = exhibitsArray[0], nextPage = len(exhibitsArray))
+        return render_template('exhibits.html', base="base.html", subject="Archaeology", allExhibits = exhibitsArray[int(currentPage)-1], nextPage = len(exhibitsArray), currentPage = currentPage)
+    return render_template('exhibits.html', base="base.html", subject="Archaeology", allExhibits = exhibitsArray[0], nextPage = len(exhibitsArray))
 
-@app.route("/Archeology_Timeline")
-def archeologyTimeline():
-    return render_template('timeline.html', base="base.html", subject="Archeology")
+@app.route("/Archaeology_Timeline")
+def archaeologyTimeline():
+    return render_template('timeline.html', base="base.html", subject="Archaeology")
 
-@app.route("/Archeology_News", methods = ['GET', 'POST'])
-def archeologyNews():
+@app.route("/Archaeology_News", methods = ['GET', 'POST'])
+def archaeologyNews():
     newsArray = []
-    allNews = News.query.filter_by(subject="archeology").all()
+    allNews = News.query.filter_by(subject="archaeology").all()
+    if len(allNews) == 0:
+        return render_template('news.html', base="base.html", subject="Archaeology")
     for i in range(0, len(allNews), 15):
         newsArray.append(allNews[i:i+15])
     if request.method == 'POST':
         currentPage = request.form['currentPage']
-        return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
-    return render_template('news.html', base="base.html", subject="Archeology", allNews = newsArray[0], nextPage = len(newsArray))
+        return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
+    return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[0], nextPage = len(newsArray))
+
+@app.route("/archaeologyDisplay", methods = ['GET', 'POST'])
+def archaeologyDisplay():
+    if request.method == 'POST':
+        print("cool")
+    return render_template('display.html', base="base.html")
 
 # ***************************** Biology *****************************
 
@@ -148,7 +160,7 @@ def biologyTimeline():
 
 @app.route("/Biology_News")
 def biologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archeology")
+    return render_template('timeline.html', base="base.html", subject="Archaeology")
 
 # ***************************** Geology *****************************
 
@@ -170,7 +182,7 @@ def geologyTimeline():
 
 @app.route("/Geology_News")
 def geologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archeology")
+    return render_template('timeline.html', base="base.html", subject="Archaeology")
 
 # ***************************** Paleontology *****************************
 
@@ -192,7 +204,7 @@ def paleontologyTimeline():
 
 @app.route("/Paleontology_News")
 def paleontologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archeology")
+    return render_template('timeline.html', base="base.html", subject="Archaeology")
 
 # ***************************** About Us *****************************
 
@@ -296,8 +308,8 @@ def createExibit():
         newExibit = Colection(type = "Exibit", name = name, shortDescription = shortDescription, description = description, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1])
         allArtifacts = Artifacts.query.filter_by(subject=subject).all()
 
-        if allArtifacts == None:
-            return render_template('upload.html', base="base.html", createExibit = 1, error="no artifacts")
+        if len(allArtifacts) == 0:
+            return render_template('upload.html', base="base.html", createExibit = 1, error=1)
         
         db.session.add(newExibit)
         db.session.commit()

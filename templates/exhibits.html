@@ -23,7 +23,29 @@
         <h1>{{ exhibits.name }}</h1><br>
         <p>{{exhibits.shortDescription}}</p>
       </div>
+<<<<<<< Updated upstream
       {% endfor %}
+=======
+
+      {% if allExhibits %}
+        {% for exhibits in allExhibits %}
+          <div class="gallery">
+            <h1>{{ exhibits.name }}</h1><br>
+            <img src="/static/exibit_img/{{exhibits.coverImageName}}" width="250" height="250">
+            <h2>{{ exhibits.shortDescription }}</h2>
+          </div>
+        {% endfor %}
+        {% for i in range(1, nextPage+1) %}
+            <form action="/Archaeology_Exhibits" method="post">
+              <input type="submit" value="{{ i }}" name="currentPage" />
+            </form>
+          {% endfor %}
+      {% else %}
+        <div class="construction_image">
+          <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
+        </div>
+      {% endif %}
+>>>>>>> Stashed changes
     </div>
     {% for i in range(1, nextPage+1) %}
     <form action="/Archeology_Exhibits" method="post">
