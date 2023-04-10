@@ -3,8 +3,6 @@
 {% block title %} {{ subject }} {% endblock %}
 
 {% block content %}
-    <h1 align="left">{{ subject }} News and Events</h1>
-
     <div class="container">
       <div class="vertical-menu">
         <a href="/{{ subject }}">Overview</a>
@@ -14,26 +12,29 @@
         <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
       </div>
 
+      <div class="main-content">
+      <h1 align="center" style="color:white">{{ subject }} News and Events</h1>
+
       {% if allNews %}
-        <div class="gallery-container">
+        <div class="news-events-container ">
           {% for news in allNews %}
-            <div class="news-items">
+            <div class="news-events-items">
               <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100">
               <h1>{{ news.name }}</h1><br>
               <h1>{{ news.shortDescription }}</h1><br>
             </div>
           {% endfor %}
-
-          {% for i in range(1, nextPage+1) %}
+        </div>
+        {% for i in range(1, nextPage+1) %}
             <form action="/Archeology_News" method="post">
               <input type="submit" value="{{ i }}" name="currentPage" />
             </form>
           {% endfor %}
-        </div>
       {% else %}
         <div class="construction_image">
           <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
         </div>
       {% endif %}
+    </div>
     </div>
 {% endblock %}

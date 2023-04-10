@@ -14,7 +14,7 @@
 
   <div class="main-content">
     <h1 align="center" style="color:white">{{ subject }} Gallery</h1>
-  
+
     {% if allArtifacts %}
     <div class="gallery-container">
       {% for artifact in allArtifacts %}
@@ -24,12 +24,12 @@
         <h1>{{ artifact.name }}</h1><br>
       </div>
       {% endfor %}
-      </div>
-      {% for i in range(1, nextPage+1) %}
-      <form action="/Archeology_Gallery" method="post">
-        <input type="submit" value="{{ i }}" name="currentPage" />
-      </form>
-      {% endfor %}
+    </div>
+    {% for i in range(1, nextPage+1) %}
+    <form action="/Archeology_Gallery" method="post">
+      <input type="submit" value="{{ i }}" name="currentPage" />
+    </form>
+    {% endfor %}
     {% else %}
     <div class="construction_image">
       <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
