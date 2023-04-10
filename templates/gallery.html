@@ -26,21 +26,12 @@
         </a>>
       </div>
       {% endfor %}
-<<<<<<< Updated upstream
     </div>
     {% for i in range(1, nextPage+1) %}
     <form action="/Archeology_Gallery" method="post">
       <input type="submit" value="{{ i }}" name="currentPage" />
     </form>
     {% endfor %}
-=======
-      </div>
-      {% for i in range(1, nextPage+1) %}
-      <form action="/Archaeology_Gallery" method="post">
-        <input type="submit" value="{{ i }}" name="currentPage" />
-      </form>
-      {% endfor %}
->>>>>>> Stashed changes
     {% else %}
     <div class="construction_image">
       <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
