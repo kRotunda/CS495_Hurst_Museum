@@ -500,6 +500,7 @@ form {
   margin-bottom: .5rem;
 }
 
+<<<<<<< Updated upstream
 
 /* --------------------------------------------------------------- */
 
@@ -530,3 +531,26 @@ form {
   color: red;
   margin-bottom: .5rem;
 }
+=======
+/* --------contact us---------------------------------------------------------- */
+
+.about_us {
+  display: flex;
+  flex-direction: row;
+}
+
+.about_us_parent {
+  display: flex;
+  flex-direction: row;
+}
+
+.about_us_child {
+  margin: 15px; /* Optional, adds space between elements */
+}
+
+.about_us_info {
+  float: left;
+  padding-top: 20px;
+}
+
+>>>>>>> Stashed changes
