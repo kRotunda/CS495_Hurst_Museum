@@ -19,9 +19,11 @@
     <div class="exhibits-container">
       {% for exhibits in allExhibits %}
       <div class="exhibits-items">
+        <a href="/{{subject}}DisplayExhibit/{{exhibits.id}}">
         <img src="/static/exibit_img/{{exhibits.coverImageName}}" width="250" height="250">
         <h1>{{ exhibits.name }}</h1><br>
         <p>{{exhibits.shortDescription}}</p>
+        </a>
       </div>
       {% endfor %}
     </div>
