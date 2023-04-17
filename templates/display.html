@@ -36,7 +36,7 @@
         </div>
 
         <h1>{{exhibit.name}}</h1><br>
-        <img src="/static/artifact_img/{{exhibit.coverImageName}}" width="150" height="100"><br>
+        <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="150" height="100"><br>
         <a>{{exhibit.description}}</a><br>
 
         {% if artifactList %}
@@ -53,5 +53,30 @@
             </div>
         {% endif %}
     {% endif %}
+
+    {% if news %}
+    <div class="vertical-menu">
+        <a href="/{{ subject }}">Overview</a>
+        <a href="/{{ subject }}_Gallery">Gallery</a>
+        <a href="/{{ subject }}_Exhibits">Exhibits</a>
+        <a href="/{{ subject }}_News" class="active">News/Events</a>
+        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+    </div>
+
+    <h1>{{news.name}}</h1><br>
+    <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100"><br>
+    <a>{{news.description}}</a><br>
+
+    {% if newsFiles %}
+        <div class="gallery-container">
+            {% for file in newsFiles %}
+
+            <div class="gallery-items">
+                <img src="/static/news_img/{{file.fileName}}" width="150" height="100">
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
 </div>
 {% endblock %}

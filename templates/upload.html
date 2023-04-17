@@ -41,7 +41,7 @@
         <input type="text" name="year" maxlength="250"><br><br>
         <input id="numOfFiles" name="numOfFiles" style="display: none" value="1">
         <label for="year">Cover Image:</label><br>
-        <input type="file" name="coverImg" required><br><br>
+        <input type="file" name="coverImg" accept=".pdf, .jpg, .svg, .gif, .png" required><br><br>
         <label for="year">File(s):</label><br>
         <input type="file" name="file0" required><br><br>
     </form><br><br>
@@ -111,7 +111,7 @@
             <textarea id="description" name="description" rows="12" cols="75" maxlength="1000" required>
             </textarea><br><br>
             <label for="year">Cover Image:</label><br>
-            <input type="file" name="coverImg" required><br><br>
+            <input type="file" name="coverImg" accept=".pdf, .jpg, .svg, .gif, .png" required><br><br>
             <input type="submit" value="Create and Select Artifacts">
         </form>
 
@@ -173,7 +173,7 @@
             <textarea id="description" name="description" maxlength="1000" rows="12" cols="75" required>
             </textarea><br><br>
             <label for="year">Cover Image:</label><br>
-            <input type="file" name="coverImg" required><br><br>
+            <input type="file" name="coverImg" accept=".pdf, .jpg, .svg, .gif, .png" required><br><br>
             <label for="year">Additional Images/Videos:</label><br>
             <input id="numOfFiles" name="numOfFiles" style="display: none" value="0">
         </form><br>

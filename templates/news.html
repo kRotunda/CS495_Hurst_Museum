@@ -19,9 +19,11 @@
         <div class="news-events-container ">
           {% for news in allNews %}
             <div class="news-events-items">
+              <a href="/{{subject}}DisplayNews/{{news.id}}">
               <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100">
               <h1>{{ news.name }}</h1><br>
               <h1>{{ news.shortDescription }}</h1><br>
+              </a>
             </div>
           {% endfor %}
         </div>

@@ -98,9 +98,11 @@
   {% for news in news_collection %} 
 
   <div class="news-items">
+    <a href="/{{news.subject}}DisplayNews/{{news.id}}">
     <img src="static/news_img/{{news.coverImageName}}" height="200" width="300" >
     <h3 class="news-item-heading">{{news.name}}</h3>
     <p class="news-item-body">{{news.shortDescription}}</p>
+    </a>
   </div>
  
   {% endfor %}

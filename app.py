@@ -152,6 +152,16 @@ def archaeologyDisplayExhibit(id):
 
     return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList)
 
+@app.route("/archaeologyDisplayNews/<id>")
+def archaeologyDisplayNewsLowerCase(id):
+    return flask.redirect('/ArchaeologyDisplayNews/'+id)
+
+@app.route("/ArchaeologyDisplayNews/<id>")
+def archaeologyDisplayNews(id):
+    news = News.query.filter_by(id=id).first()
+    newsFiles = NewsFiles.query.filter_by(newsId=id).all()
+    return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles)
+
 # ***************************** Biology *****************************
 
 @app.route("/Biology")
