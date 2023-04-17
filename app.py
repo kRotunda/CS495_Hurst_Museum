@@ -134,11 +134,11 @@ def archaeologyNews():
         return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
     return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[0], nextPage = len(newsArray))
 
-@app.route("/archaeologyDisplay", methods = ['GET', 'POST'])
-def archaeologyDisplay():
-    if request.method == 'POST':
-        print("cool")
-    return render_template('display.html', base="base.html")
+@app.route("/ArchaeologyDisplay/<id>", methods = ['GET', 'POST'])
+def archaeologyDisplay(id):
+    artifact = Artifacts.query.filter_by(id=id).first()
+    artifactFiles = Files.query.filter_by(artifactId=id).all()
+    return render_template('display.html', base="base.html", artifact = artifact, artifactFiles = artifactFiles)
 
 # ***************************** Biology *****************************
 

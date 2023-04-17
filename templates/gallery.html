@@ -20,10 +20,10 @@
       {% for artifact in allArtifacts %}
 
       <div class="gallery-items">
-        <a href="/{{subject}}Display">
+        <a href="/{{subject}}Display/{{artifact.id}}">
         <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
         <h1>{{ artifact.name }}</h1><br>
-        </a>>
+        </a>
       </div>
       {% endfor %}
     </div>

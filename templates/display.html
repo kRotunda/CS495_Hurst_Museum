@@ -1,0 +1,29 @@
+{% extends base %}
+
+{% block title %} {{ subject }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="vertical-menu">
+        <a href="/{{ subject }}">Overview</a>
+        <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
+        <a href="/{{ subject }}_Exhibits">Exhibits</a>
+        <a href="/{{ subject }}_News">News/Events</a>
+        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+    </div>
+
+    {% if artifact %}
+    <div class="main-content">
+        <h1>{{artifact.name}}</h1><br>
+        <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100"><br>
+        {% if artifact.timePeriod is defined  %}
+            <a>{{artifact.timePeriod}}</a><br>
+        {% endif %}
+        <a>{{artifact.description}}</a><br>
+        {% for file in artifactFiles %}
+            <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
+        {% endfor  %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
