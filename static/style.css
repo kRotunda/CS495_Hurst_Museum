@@ -149,9 +149,7 @@ h6 {
 
 /***************************** Footer *****************************/
 
-footer {
-
-  
+footer {  
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -366,12 +364,12 @@ form {
 /*  -------News Items -------------------------------------------- */
 
 .news-container {
-  width: 100%;
-  margin: 4rem auto;
+  width:max-content;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
   grid-template-columns: auto auto auto auto;
+  margin: 5px;
 }
 
 .news-items {
@@ -390,18 +388,15 @@ form {
   margin-bottom: .5rem;
 }
 
-
-
 /* ----------quick lines------------------------------------- */
 
-
 .quick-links {
-  width: 100%;
-  margin: 4rem auto;
+  width:auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
   grid-template-columns: auto auto auto auto;
+  margin:5px;
 }
 
 .quicklink-items {
@@ -425,8 +420,7 @@ form {
 /* ---------gallery--------------------------------------------------- */
 
 .gallery-container {
-  width: 100%;
-  margin: 4rem auto;
+  width:auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
@@ -454,8 +448,7 @@ form {
 /* --------Exhibits---------------------------------------------------------- */
 
 .exhibits-container {
-  width: 100%;
-  margin: 4rem auto;
+  width:max-content;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
@@ -483,7 +476,7 @@ form {
 /* ----------------------------------------------- */
 
 .news-events-container {
-  width: 100%;
+  width:auto;
   margin: 4rem auto;
   background-color: antiquewhite;
   display: grid;
