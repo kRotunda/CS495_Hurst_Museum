@@ -5,54 +5,68 @@
 {% block content %}
 <div class="container">
     {% if artifact %}
-        <div class="vertical-menu">
-            <a href="/{{ subject }}">Overview</a>
-            <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
-            <a href="/{{ subject }}_Exhibits">Exhibits</a>
-            <a href="/{{ subject }}_News">News/Events</a>
-            <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
-        </div>
+    <div class="vertical-menu">
+        <a href="/{{ subject }}">Overview</a>
+        <a href="/{{ subject }}_Gallery" class="active">Gallery</a>
+        <a href="/{{ subject }}_Exhibits">Exhibits</a>
+        <a href="/{{ subject }}_News">News/Events</a>
+        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+    </div>
 
-        <div class="main-content">
-            <h1>{{artifact.name}}</h1><br>
-            <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100"><br>
-            {% if artifact.timePeriod is defined  %}
+    <div class="main-content">
+        <div class="display-container">
+            <div class="display-items">
+                <h1>{{artifact.name}}</h1><br>
+                <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100"><br>
+                {% if artifact.timePeriod is defined %}
                 <a>{{artifact.timePeriod}}</a><br>
-            {% endif %}
-            <a>{{artifact.description}}</a><br>
-            {% for file in artifactFiles %}
+                {% endif %}
+                <a>{{artifact.description}}</a><br>
+                {% for file in artifactFiles %}
                 <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
-            {% endfor  %}
-        </div>
-    {% endif %}
-
-    {% if exhibit %}
-        <div class="vertical-menu">
-            <a href="/{{ subject }}">Overview</a>
-            <a href="/{{ subject }}_Gallery">Gallery</a>
-            <a href="/{{ subject }}_Exhibits" class="active">Exhibits</a>
-            <a href="/{{ subject }}_News">News/Events</a>
-            <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
-        </div>
-
-        <h1>{{exhibit.name}}</h1><br>
-        <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="150" height="100"><br>
-        <a>{{exhibit.description}}</a><br>
-
-        {% if artifactList %}
-            <div class="gallery-container">
-                {% for artifact in artifactList %}
-
-                <div class="gallery-items">
-                    <a href="/{{subject}}Display/{{artifact.id}}">
-                    <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
-                    <h1>{{ artifact.name }}</h1><br>
-                    </a>
-                </div>
                 {% endfor %}
             </div>
-        {% endif %}
+        </div>
+    </div>
     {% endif %}
+
+
+
+
+    {% if exhibit %}
+    <div class="vertical-menu">
+        <a href="/{{ subject }}">Overview</a>
+        <a href="/{{ subject }}_Gallery">Gallery</a>
+        <a href="/{{ subject }}_Exhibits" class="active">Exhibits</a>
+        <a href="/{{ subject }}_News">News/Events</a>
+        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+    </div>
+
+    <div class="main-content">
+        <div class="display-container">
+            <div class="display-items">
+                <h1>{{exhibit.name}}</h1><br>
+                <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="150" height="100"><br>
+                <a>{{exhibit.description}}</a><br>
+
+                {% if artifactList %}
+                {% for artifact in artifactList %}
+
+                <a href="/{{subject}}Display/{{artifact.id}}">
+                    <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
+                    <h1>{{ artifact.name }}</h1><br>
+                </a>
+
+                {% endfor %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
 
     {% if news %}
     <div class="vertical-menu">
@@ -63,20 +77,23 @@
         <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
     </div>
 
-    <h1>{{news.name}}</h1><br>
-    <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100"><br>
-    <a>{{news.description}}</a><br>
 
-    {% if newsFiles %}
-        <div class="gallery-container">
-            {% for file in newsFiles %}
-
-            <div class="gallery-items">
+    <div class="main-content">
+        <div class="display-container">
+            <div class="display-items">
+                <h1>{{news.name}}</h1><br>
+                <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100"><br>
+                <a>{{news.description}}</a><br>
+                {% if newsFiles %}
+                {% for file in newsFiles %}
                 <img src="/static/news_img/{{file.fileName}}" width="150" height="100">
+                {% endfor %}
+                {% endif %}
             </div>
-            {% endfor %}
         </div>
+    </div>
     {% endif %}
-{% endif %}
 </div>
+
+
 {% endblock %}
