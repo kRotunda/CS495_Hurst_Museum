@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('/static/footer-background.jpg');
+  background-image: url('/static/resorce_img/footer-background.jpg');
 
 }
 
@@ -10,7 +10,7 @@
 
 body {
   text-align: center;
-  background-image: url('/static/pexels.jpeg');
+  background-image: url('/static/resorce_img/pexels.jpeg');
   background-color: black;
   height: 1000px;
   background-repeat: no-repeat;

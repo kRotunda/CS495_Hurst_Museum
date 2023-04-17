@@ -286,7 +286,7 @@ def createArtifact():
         image = request.files['coverImg']
         filename = secure_filename(image.filename)
         basedir = os.path.abspath(os.path.dirname(__file__))
-        image.save(os.path.join(basedir, app.config["EXIBIT_UPLOADS"], filename))
+        image.save(os.path.join(basedir, app.config["IMAGE_UPLOADS"], filename))
 
         if year == "":
             newArtifact = Artifacts(name = artifactName, description = description, subject = subject, coverImageName = filename, coverImageType = filename.split('.')[-1], uploadedBy = current_user.id)
