@@ -3,19 +3,106 @@
 {% block title %} {{ subject }} {% endblock %}
 
 {% block content %}
-    <h1 align="left">{{ subject }} Overview</h1>
+<div class="container">
+  <div class="vertical-menu">
+    <a href="/{{ subject }}" class="active">Overview</a>
+    <a href="/{{ subject }}_Gallery">Gallery</a>
+    <a href="/{{ subject }}_Exhibits">Exhibits</a>
+    <a href="/{{ subject }}_News">News/Events</a>
+    <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+  </div>
 
-    <div class="container">
-      <div class="vertical-menu">
-        <a href="/{{ subject }}" class="active">Overview</a>
-        <a href="/{{ subject }}_Gallery">Gallery</a>
-        <a href="/{{ subject }}_Exhibits">Exhibits</a>
-        <a href="/{{ subject }}_Exhibits">News/Events</a>
-        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
-      </div>
+  <div class="main-content">
+    <h1 align="center" style="color:white">{{ subject }} Overview</h1>
 
-      <div class="construction_image">
-        <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
+    <div align="center" class="slideshow-container">
+      <!-- Full-width images with number and caption text -->
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 6</div>
+        <img src="/static/slideshow/cave.jpg" style="width:100%">
+        <div class="text">Caption Text</div>
       </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 6</div>
+        <img src="/static/slideshow/circle.jpg" style="width:100%">
+        <div class="text">Caption Two</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 6</div>
+        <img src="/static/slideshow/digging.jpg" style="width:100%">
+        <div class="text">Caption Three</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 6</div>
+        <img src="/static/slideshow/tippe.jpg" style="width:100%">
+        <div class="text">Caption Three</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext">5 / 6</div>
+        <img src="/static/slideshow/view.jpg" style="width:100%">
+        <div class="text">Caption Three</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext">6 / 6</div>
+        <img src="/static/slideshow/animals.jpg" style="width:100%">
+        <div class="text">Caption Three</div>
+      </div>
+    
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
+    <br>
+    
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+      <span class="dot" onclick="currentSlide(6)"></span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+</script>
+
+      
+      
 {% endblock %}
