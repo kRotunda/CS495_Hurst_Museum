@@ -10,10 +10,10 @@
 
 body {
   text-align: center;
-  background-image: url('/static/resorce_img/pexels.jpeg');
+  background-image: url('/static/resorce_img/congruent_outline.png');
   background-color: black;
-  height: 1000px;
-  background-repeat: no-repeat;
+  height: auto;
+  background-repeat:repeat;
   background-size: cover;
   color: white;
 }

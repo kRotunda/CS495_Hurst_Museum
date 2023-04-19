@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from werkzeug.utils import secure_filename
 import flask
 import os
+import smtplib
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -419,6 +420,30 @@ def createNews():
 def logout():
     logout_user()
     return flask.redirect('/')
+
+@app.route('/forgotPassword', methods = ['GET', 'POST'])
+def forgotPassword():
+    if request.method == 'POST':
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+
+        email = user.email
+        password = user.password
+        username = user.username
+        name = user.firstname
+
+        subject = "Forgot Password!"
+        text = "Dear " + name + ",\n\n" + "Your Username is: " + username +",\n\n" + "Your Password is: " + password + "\n\nThank you for using CT Hurst Virtual Museum!"
+        message = 'Subject: {}\n\n{}'.format(subject, text)
+
+        server = smtplib.SMTP("smtp.office365.com", 587)
+        server.starttls()
+
+        server.login("SafeRideGunnison@outlook.com", "Safe81230")
+        server.sendmail("SafeRideGunnison@outlook.com", email, message)
+        server.quit()
+        return flask.redirect('/Admin_Login')
+    return render_template('forgot.html', base="base.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
