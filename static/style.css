@@ -503,22 +503,32 @@ form {
 /* --------contact us---------------------------------------------------------- */
 
 .about_us {
-  display: flex;
-  flex-direction: row;
+  display: inline-block;
 }
 
 .about_us_parent {
   display: flex;
   flex-direction: row;
+  background-color: #B10505;
+  border-radius: 10%;
+  padding: 25px;
+  margin: 25px;
 }
 
 .about_us_child {
-  margin: 15px; /* Optional, adds space between elements */
+  margin: 15px;
+  border-radius: 5%;
 }
 
 .about_us_info {
   float: left;
   padding-top: 20px;
+  color: white;
+}
+
+.about_us_links {
+  color: #0060B6;
+  text-decoration: none;
 }
 
 .modelButton {
