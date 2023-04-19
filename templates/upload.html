@@ -43,7 +43,7 @@
         <label for="year">Cover Image:</label><br>
         <input type="file" name="coverImg" accept=".pdf, .jpg, .svg, .gif, .png" required><br><br>
         <label for="year">File(s):</label><br>
-        <input type="file" name="file0" accept=".pdf, .jpg, .svg, .gif, .png, .mp4, .mov, .obj, .fbx, .stl" required><br><br>
+        <input type="file" name="file0" accept=".pdf, .jpg, .svg, .gif, .png, .mp3, .mp4, .mov, .obj, .fbx, .stl" required><br><br>
     </form><br><br>
 
     <button onclick="addFile()" id="addFileButton">Add File</button><br>
@@ -60,7 +60,7 @@
                 
                 input.setAttribute('type', 'file');
                 input.setAttribute('name', 'file'+fileCount);
-                input.setAttribute('accept', '.pdf, .jpg, .svg, .gif, .png, .mp4, .mov, .obj, .fbx, .stl')
+                input.setAttribute('accept', '.pdf, .jpg, .svg, .gif, .png, .mp3, .mp4, .mov, .obj, .fbx, .stl')
                 fileCount++;
 
                 form.appendChild(input);
@@ -193,7 +193,7 @@
                     
                     input.setAttribute('type', 'file');
                     input.setAttribute('name', 'file'+fileCount);
-                    input.setAttribute('accept', '.pdf, .jpg, .svg, .gif, .png, .mp4, .mov, .obj, .fbx, .stl')
+                    input.setAttribute('accept', '.pdf, .jpg, .svg, .gif, .png, .mp3, .mp4, .mov, .obj, .fbx, .stl')
                     fileCount++;
     
                     form.appendChild(input);

@@ -23,7 +23,22 @@
                 {% endif %}
                 <a>{{artifact.description}}</a><br>
                 {% for file in artifactFiles %}
-                <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
+                    {% if file.fileType == "mp4" or file.fileType == "mov" %}  
+                        <video width="640" height="360" controls>
+                            <source src="/static/artifact_img/{{file.fileName}}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video><br>
+                    {% elif file.fileType == "mp3" %}
+                        <audio controls>
+                            <source src="/static/artifact_img/{{file.fileName}}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio><br>
+                    {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
+                        <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
+                        <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
+                    {% else %}
+                        <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -85,9 +100,24 @@
                 <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100"><br>
                 <a>{{news.description}}</a><br>
                 {% if newsFiles %}
-                {% for file in newsFiles %}
-                <img src="/static/news_img/{{file.fileName}}" width="150" height="100">
-                {% endfor %}
+                    {% for file in newsFiles %}
+                        {% if file.fileType == "mp4" or file.fileType == "mov" %}  
+                            <video width="640" height="360" controls>
+                                <source src="/static/news_img/{{file.fileName}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video><br>
+                        {% elif file.fileType == "mp3" %}
+                            <audio controls>
+                                <source src="/static/news_img/{{file.fileName}}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                          </audio><br>
+                        {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
+                            <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
+                            <a href="/static/news_img/{{file.fileName}}" download>Download 3D Model!</a>
+                        {% else %}
+                            <img src="/static/news_img/{{file.fileName}}" width="150" height="100"><br>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>

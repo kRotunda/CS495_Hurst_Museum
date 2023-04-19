@@ -500,38 +500,6 @@ form {
   margin-bottom: .5rem;
 }
 
-<<<<<<< Updated upstream
-
-/* --------------------------------------------------------------- */
-
-.display-container {
-  width:auto;
-  margin: 4rem auto;
-  background-color: antiquewhite;
-  display: grid;
-  align-items: center;
-  grid-template-columns: auto auto auto;
-  margin: 5px;
-}
-
-.display-items {
-  padding: 2rem;
-  box-shadow: 0 0, .4rem, .4rem black;
-  border: 2px solid black;
-  margin: 10px;
-  background-color: antiquewhite;
-  align-items: center;
-}
-
-.display-items:hover {
-  background-color: bisque;
-}
-
-.display-heading {
-  color: red;
-  margin-bottom: .5rem;
-}
-=======
 /* --------contact us---------------------------------------------------------- */
 
 .about_us {
@@ -553,4 +521,3 @@ form {
   padding-top: 20px;
 }
 
->>>>>>> Stashed changes

@@ -12,6 +12,8 @@
     <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
   </div>
 
+
+  {% if subject == "Archaeology" %}
   <div class="main-content">
     <h1 align="center" style="color:white">{{ subject }} Overview</h1>
 
@@ -72,37 +74,42 @@
 </div>
 
 
-<script>
-  let slideIndex = 1;
-  showSlides(slideIndex);
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-  // Next/previous controls
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-  }
-
-  // Thumbnail image controls
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
-  }
-
-  function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    let dots = document.getElementsByClassName("dot");
-    if (n > slides.length) { slideIndex = 1 }
-    if (n < 1) { slideIndex = slides.length }
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+    // Next/previous controls
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
     }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-  }
-</script>
 
-      
+    // Thumbnail image controls
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+  </script>
+  {% else %}
+    <div class="container">
+    <div class="main-content">
+      <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
+    </div>
+  </div>
+  {% endif %}
       
 {% endblock %}
