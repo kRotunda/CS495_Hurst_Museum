@@ -34,8 +34,8 @@
                             Your browser does not support the audio element.
                         </audio><br>
                     {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
-                        <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
-                        <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
+                        <!-- <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a> -->
+                        <a href="/static/artifact_img/{{file.fileName}}" download><button class="modelButton">Download 3D Model!</button></a>
                     {% else %}
                         <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
                     {% endif %}

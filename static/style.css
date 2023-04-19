@@ -521,3 +521,17 @@ form {
   padding-top: 20px;
 }
 
+.modelButton {
+  margin:auto; 
+  padding:14px 16px;
+  background-color:lightcoral;
+  color:#000;
+  background-color: #B10505;
+  opacity: 1;
+  border-radius: 8px;
+}
+
+.modelButton:hover {
+  background-color: rgba(183, 6, 6, 0.8);
+}
+
