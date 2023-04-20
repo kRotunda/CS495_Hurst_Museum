@@ -3,6 +3,129 @@
 {% block title %} {{ subject }} {% endblock %}
 
 {% block content %}
+
+<style>
+    .display-container {
+        margin: 5px;
+        width: 95%;
+
+    }
+
+    .display-container h1 {
+        color: white;
+    }
+
+    .display-items {
+        background-color: antiquewhite;
+        padding: 2px;
+    }
+
+    .main-content {
+        color: black;
+    }
+
+    .display-info {
+        position: relative;
+        display: flex;
+        gap: 20px;
+        margin: 10px;
+        border: solid 3px black;
+    }
+
+    .display-info img {
+        border: solid 5px beige;
+        margin: 10px;
+    }
+
+    .description {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: auto;
+        margin-left: 35px;
+    }
+
+    .timePeriod {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 2px;
+    }
+
+
+    .artifactFiles {
+        width: auto;
+        background-color: antiquewhite;
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto auto;
+        margin: 5px;
+        overflow: scroll;
+    }
+
+    .artifactfiles-items {
+        padding: 2rem;
+        box-shadow: 0 0, .4rem, .4rem black;
+        border: 2px solid black;
+        margin: 10px;
+    }
+
+    .artifactfiles-items:hover {
+        background-color: bisque;
+    }
+
+    .artifactfiles-items-heading {
+        color: red;
+        margin-bottom: .5rem;
+    }
+
+    .artifact {
+        border: 2px solid black;
+        width: auto;
+        height: auto;
+    }
+
+    .artifact-container {
+        width: 100%;
+        background-color: antiquewhite;
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 5px;
+    }
+
+    .artifact-items {
+        padding: 2rem;
+        box-shadow: 0 0, .4rem, .4rem black;
+        border: 2px solid black;
+        margin: 10px;
+        min-width: 0;
+    }
+
+
+    .news-files{
+        width: auto;
+        background-color: antiquewhite;
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto auto;
+        margin: 5px;
+        overflow: scroll;
+    }
+
+
+    .news-files-items{
+        padding: 2rem;
+        box-shadow: 0 0, .4rem, .4rem black;
+        border: 2px solid black;
+        margin: 10px;
+    }
+
+    .news-files-items:hover {
+        background-color: bisque;
+    }
+
+</style>
+
 <div class="container">
     {% if artifact %}
     <div class="vertical-menu">
@@ -15,31 +138,43 @@
 
     <div class="main-content">
         <div class="display-container">
+            <h1>{{artifact.name}}</h1>
             <div class="display-items">
-                <h1>{{artifact.name}}</h1><br>
-                <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100"><br>
-                {% if artifact.timePeriod is defined %}
-                <a>{{artifact.timePeriod}}</a><br>
-                {% endif %}
-                <a>{{artifact.description}}</a><br>
-                {% for file in artifactFiles %}
-                    {% if file.fileType == "mp4" or file.fileType == "mov" %}  
-                        <video width="640" height="360" controls>
+                <div class="display-info">
+                    <img src="/static/artifact_img/{{artifact.coverImageName}}" width="300" height="200">
+                    <p class="description">{{artifact.description}}</p>
+                    {% if artifact.timePeriod is defined %}
+                    <p class="timePeriod">{{artifact.timePeriod}}</p>
+                    {% endif %}
+                </div>
+
+                <div class="artifactFiles">
+                    {% for file in artifactFiles %}
+                    {% if file.fileType == "mp4" or file.fileType == "mov" %}
+                    <div class="artifactfiles-items">
+                        <video width="500" height="400" controls>
                             <source src="/static/artifact_img/{{file.fileName}}" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video><br>
+                        </video>
+                    </div>
                     {% elif file.fileType == "mp3" %}
+                    <div class="artifactfiles-items">
                         <audio controls>
                             <source src="/static/artifact_img/{{file.fileName}}" type="audio/mpeg">
                             Your browser does not support the audio element.
-                        </audio><br>
+                        </audio>
+                    </div>
                     {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
-                        <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
-                        <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
+                    <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
+                    <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
                     {% else %}
-                        <img src="/static/artifact_img/{{file.fileName}}" width="150" height="100"><br>
+                    <div class="artifactfiles-items">
+                        <img src="/static/artifact_img/{{file.fileName}}" width="300" height="200">
+                    </div>
+
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -59,70 +194,101 @@
 
     <div class="main-content">
         <div class="display-container">
+            <h1>{{exhibit.name}}</h1>
             <div class="display-items">
-                <h1>{{exhibit.name}}</h1><br>
-                <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="150" height="100"><br>
-                <a>{{exhibit.description}}</a><br>
+                <div class="display-info">
+                    <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="300" height="300">
+                    <p class="description">{{exhibit.description}}</p>
+                </div>
 
-                {% if artifactList %}
-                {% for artifact in artifactList %}
+                {% for news in news_collection %}
 
-                <a href="/{{subject}}Display/{{artifact.id}}">
-                    <img src="/static/artifact_img/{{artifact.coverImageName}}" width="150" height="100">
-                    <h1>{{ artifact.name }}</h1><br>
-                </a>
+                <div class="news-items">
+                    <a href="/{{news.subject}}DisplayNews/{{news.id}}">
+                        <img src="static/news_img/{{news.coverImageName}}" height="200" width="300">
+                        <h3 class="news-item-heading">{{news.name}}</h3>
+                        <p class="news-item-body">{{news.shortDescription}}</p>
+                    </a>
+                </div>
 
                 {% endfor %}
 
-                {% endif %}
-
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-
-
-    {% if news %}
-    <div class="vertical-menu">
-        <a href="/{{ subject }}">Overview</a>
-        <a href="/{{ subject }}_Gallery">Gallery</a>
-        <a href="/{{ subject }}_Exhibits">Exhibits</a>
-        <a href="/{{ subject }}_News" class="active">News/Events</a>
-        <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
-    </div>
-
-
-    <div class="main-content">
-        <div class="display-container">
-            <div class="display-items">
-                <h1>{{news.name}}</h1><br>
-                <img src="/static/news_img/{{news.coverImageName}}" width="150" height="100"><br>
-                <a>{{news.description}}</a><br>
-                {% if newsFiles %}
-                    {% for file in newsFiles %}
-                        {% if file.fileType == "mp4" or file.fileType == "mov" %}  
-                            <video width="640" height="360" controls>
-                                <source src="/static/news_img/{{file.fileName}}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video><br>
-                        {% elif file.fileType == "mp3" %}
-                            <audio controls>
-                                <source src="/static/news_img/{{file.fileName}}" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                          </audio><br>
-                        {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
-                            <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
-                            <a href="/static/news_img/{{file.fileName}}" download>Download 3D Model!</a>
-                        {% else %}
-                            <img src="/static/news_img/{{file.fileName}}" width="150" height="100"><br>
+                <div class="artifact-container">
+                    {% if artifactList %}
+                    {% for artifact in artifactList %}
+                    <div class="artifact-items">
+                        <a href="/{{subject}}Display/{{artifact.id}}" style="text-decoration: none;">
+                            <img src="/static/artifact_img/{{artifact.coverImageName}}" width="200" height="150">
+                            <h1>{{ artifact.name }}</h1>
+                        </a>
+                        {% endfor %}
                         {% endif %}
-                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+
+
+
+{% if news %}
+<div class="vertical-menu">
+    <a href="/{{ subject }}">Overview</a>
+    <a href="/{{ subject }}_Gallery">Gallery</a>
+    <a href="/{{ subject }}_Exhibits">Exhibits</a>
+    <a href="/{{ subject }}_News" class="active">News/Events</a>
+    <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
+</div>
+
+
+<div class="main-content">
+    <div class="display-container">
+        <h1>{{news.name}}</h1>
+        <div class="display-items">
+            <div class="display-info">
+                <img src="/static/news_img/{{news.coverImageName}}" width="300" height="200">
+                <p class="description">{{news.description}}</p>
+            </div>
+
+            <div class="news-files">
+                {% if newsFiles %}
+                {% for file in newsFiles %}
+                {% if file.fileType == "mp4" or file.fileType == "mov" %}
+                <div class="news-files-items">
+                    <video width="640" height="360" controls>
+                        <source src="/static/news_img/{{file.fileName}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% elif file.fileType == "mp3" %}
+                <div class="news-files-items">
+                    <audio controls>
+                        <source src="/static/news_img/{{file.fileName}}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
+                <div class="news-files-items">
+                    <a href="/static/news_img/{{file.fileName}}" download>Download 3D Model!</a>
+                </div>
+
+                <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
+
+                {% else %}
+                <div class="news-files-items">
+                    <img src="/static/news_img/{{file.fileName}}" width="150" height="100"><br>
+                </div>
+                {% endif %}
+                {% endfor %}
                 {% endif %}
             </div>
         </div>
     </div>
-    {% endif %}
+</div>
+{% endif %}
 </div>
 
 

@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -16,6 +21,7 @@ body {
   background-repeat:repeat;
   background-size: cover;
   color: white;
+  padding-bottom: 100px;
 }
 
 .heading {
@@ -142,47 +148,69 @@ h6 {
 }
 
 .main-content {
-  width: 80%;
+  width: 90%;
 }
 
 
 /***************************** Footer *****************************/
 
-footer {  
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+footer {
   background-color: white;
   padding: 20px;
-  font-family: Arial, sans-serif;
   color: black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top:20px ;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.footer-left {
+  flex: 1;
 }
 
 .footer-left img {
-  max-width: 70%;
+  max-width: 100%;
+}
+
+.footer-middle {
+  flex: 2;
+  text-align: center;
 }
 
 .footer-middle p {
-  margin: 1px;
-}
-
-.footer-right ul {
-  list-style: none;
-  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
   margin: 0;
 }
 
-.footer-right li {
-  margin-bottom: 10px;
+.footer-right {
+  flex: 1;
+  text-align: right;
 }
 
 .footer-right a {
-  color: #555;
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 16px;
   text-decoration: none;
 }
 
 .footer-right a:hover {
-  color: #000;
+  color: #666;
+}
+
+.footer-right li {
+  list-style-type: none;
+  text-align: left;
 }
 
 
@@ -363,11 +391,11 @@ form {
 /*  -------News Items -------------------------------------------- */
 
 .news-container {
-  width:max-content;
+  width: 100%;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 5px;
 }
 
@@ -376,6 +404,7 @@ form {
   box-shadow: 0 0, .4rem, .4rem black;
   border: 2px solid black;
   margin: 10px;
+  min-width: 0;
 }
 
 .news-items:hover {
@@ -390,19 +419,21 @@ form {
 /* ----------quick lines------------------------------------- */
 
 .quick-links {
-  width:auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto auto;
-  margin:5px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
 .quicklink-items {
   padding: 2rem;
-  box-shadow: 0 0, .4rem, .4rem black;
+  box-shadow: 0 0 .4rem .4rem black;
   border: 2px solid black;
   margin: 10px;
+  min-width: 0;
+  height: 150px; /* or any other value you choose */
 }
 
 .quicklinks-items:hover {
@@ -423,7 +454,7 @@ form {
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 5px;
 }
 
@@ -447,11 +478,11 @@ form {
 /* --------Exhibits---------------------------------------------------------- */
 
 .exhibits-container {
-  width:max-content;
+  width:auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 5px;
 }
 
@@ -480,8 +511,9 @@ form {
   background-color: antiquewhite;
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 5px;
+  margin-bottom: 10px;
 }
 
 .news-events-items {

@@ -3,6 +3,42 @@
 {% block title %} {{ subject }} {% endblock %}
 
 {% block content %}
+
+<style>
+  .overview-slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: 10px;
+    width: 400px;
+    height: 300px;
+    background-color: #201D1D;
+
+  }
+
+  .overview-mySlides image {
+    display: none;
+    padding: 50px;
+    margin: 50px;
+    object-fit: scale-down;
+    width: 400px;
+    height: 300px;
+  }
+
+  .overview-main-content{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin: 0 auto
+  }
+
+  .overview-text{
+    width:500px;
+    margin: 20px;
+  }
+
+
+</style>
+
 <div class="container">
   <div class="vertical-menu">
     <a href="/{{ subject }}" class="active">Overview</a>
@@ -12,104 +48,104 @@
     <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
   </div>
 
-
   {% if subject == "Archaeology" %}
-  <div class="main-content">
-    <h1 align="center" style="color:white">{{ subject }} Overview</h1>
+  <div class="overview-main-content">
+    
+    <div class="overview-text">
+      <h1>{{ subject }} Overview</h1>
+      <p>jsugahdbjkahjdnuahbndjhajoud  aihdui augduag dgaubduabdyuvabuyvd yav dy vau dayvudg aug duau gu</p>
+      <p>jsugahdbjkahjdnuahbndjhajoud  aihdui augduag dgaubduabdyuvabuyvd yav dy vau dayvudg aug duau gu</p>
+      <p>jsugahdbjkahjdnuahbndjhajoud  aihdui augduag dgaubduabdyuvabuyvd yav dy vau dayvudg aug duau gu</p>
+      <p>jsugahdbjkahjdnuahbndjhajoud  aihdui augduag dgaubduabdyuvabuyvd yav dy vau dayvudg aug duau gu</p>
+    </div>
 
-    <div align="center" class="slideshow-container">
-      <!-- Full-width images with number and caption text -->
-      <div class="mySlides fade">
-        <div class="numbertext">1 / 6</div>
-        <img src="/static/slideshow/cave.jpg" style="width:100%">
-        <div class="text">Caption Text</div>
+    <div class="slides">
+      <div align="left" class="overview-slideshow-container">
+        <div class="overview-mySlides fade">
+          <div class="numbertext">1 / 6</div>
+          <img src="/static/slideshow/cave.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <div class="overview-mySlides fade">
+          <div class="numbertext">2 / 6</div>
+          <img src="/static/slideshow/circle.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <div class="overview-mySlides fade">
+          <div class="numbertext">3 / 6</div>
+          <img src="/static/slideshow/digging.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <div class="overview-mySlides fade">
+          <div class="numbertext">4 / 6</div>
+          <img src="/static/slideshow/tippe.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <div class="overview-mySlides fade">
+          <div class="numbertext">5 / 6</div>
+          <img src="/static/slideshow/view.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <div class="overview-mySlides fade">
+          <div class="numbertext">6 / 6</div>
+          <img src="/static/slideshow/animals.jpg" style=" width:100%; height: 100%;">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
       </div>
-    
-      <div class="mySlides fade">
-        <div class="numbertext">2 / 6</div>
-        <img src="/static/slideshow/circle.jpg" style="width:100%">
-        <div class="text">Caption Two</div>
+      <br>
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
       </div>
-    
-      <div class="mySlides fade">
-        <div class="numbertext">3 / 6</div>
-        <img src="/static/slideshow/digging.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
-      </div>
-    
-      <div class="mySlides fade">
-        <div class="numbertext">4 / 6</div>
-        <img src="/static/slideshow/tippe.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
-      </div>
-    
-      <div class="mySlides fade">
-        <div class="numbertext">5 / 6</div>
-        <img src="/static/slideshow/view.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
-      </div>
-    
-      <div class="mySlides fade">
-        <div class="numbertext">6 / 6</div>
-        <img src="/static/slideshow/animals.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
-      </div>
-    
-      <!-- Next and previous buttons -->
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
-    <br>
-    
-    <!-- The dots/circles -->
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-      <span class="dot" onclick="currentSlide(4)"></span>
-      <span class="dot" onclick="currentSlide(5)"></span>
-      <span class="dot" onclick="currentSlide(6)"></span>
-    </div>
+
+   
   </div>
+
 </div>
 
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
 
-  <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
 
-    // Next/previous controls
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("overview-mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
     }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
     }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+</script>
 
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) { slideIndex = 1 }
-      if (n < 1) { slideIndex = slides.length }
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active";
-    }
-  </script>
-  {% else %}
-    <div class="container">
-    <div class="main-content">
-      <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
-    </div>
+{% else %}
+<div class="container">
+  <div class="main-content">
+    <img src="https://thumbs.dreamstime.com/b/under-construction-sign-9939879.jpg" width="600" height="400">
   </div>
-  {% endif %}
-      
+</div>
+{% endif %}
 {% endblock %}
