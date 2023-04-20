@@ -166,7 +166,10 @@
                     </div>
                     {% elif file.fileType == "obj" or file.fileType == "fbx" or file.fileType == "stl" %}
                         <!-- https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene -->
-                        <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
+
+                        <div class="artifactfiles-items">
+                            <a href="/static/artifact_img/{{file.fileName}}" download>Download 3D Model!</a>
+                        </div>
                     {% else %}
                     <div class="artifactfiles-items">
                         <img src="/static/artifact_img/{{file.fileName}}" width="300" height="200">
