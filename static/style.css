@@ -535,21 +535,45 @@ form {
 /* --------contact us---------------------------------------------------------- */
 
 .about_us {
-  display: flex;
-  flex-direction: row;
+  display: inline-block;
 }
 
 .about_us_parent {
   display: flex;
   flex-direction: row;
+  background-color: #B10505;
+  border-radius: 10%;
+  padding: 25px;
+  margin: 25px;
 }
 
 .about_us_child {
-  margin: 15px; /* Optional, adds space between elements */
+  margin: 15px;
+  border-radius: 5%;
 }
 
 .about_us_info {
   float: left;
   padding-top: 20px;
+  color: white;
+}
+
+.about_us_links {
+  color: #0060B6;
+  text-decoration: none;
+}
+
+.modelButton {
+  margin:auto; 
+  padding:14px 16px;
+  background-color:lightcoral;
+  color:#000;
+  background-color: #B10505;
+  opacity: 1;
+  border-radius: 8px;
+}
+
+.modelButton:hover {
+  background-color: rgba(183, 6, 6, 0.8);
 }
 
