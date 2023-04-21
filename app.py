@@ -163,6 +163,116 @@ def archaeologyDisplayNews(id):
     newsFiles = NewsFiles.query.filter_by(newsId=id).all()
     return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles)
 
+@app.route("/updateArchaeology/<id>", methods = ['GET', 'POST'])
+@login_required
+def updateArchaeology(id):
+    artifact = Artifacts.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        artifact.name = request.form['artifactName']
+        artifact.description = request.form['description']
+        artifact.timePeriod = request.form['year']
+        db.session.commit()
+        return flask.redirect('/ArchaeologyDisplay/'+id)
+    return render_template('updatePost.html', base="base.html", subject="Archaeology", artifact = artifact)
+
+@app.route("/deleteArchaeology/<id>")
+@login_required
+def deleteArchaeology(id):
+    artifact = Artifacts.query.filter_by(id=id).first()
+    collection = ColectionArtifacts.query.filter_by(artifactId=id).all()
+    artifactFiles = Files.query.filter_by(artifactId=id).all()
+
+    for artifactCollection in collection:
+        db.session.delete(artifactCollection)
+    for file in artifactFiles:
+        try:
+            os.remove('static/artifact_img/' + file.fileName)
+            print("File deleted successfully.")
+        except FileNotFoundError:
+            print("File not found.")
+        except Exception as e:
+            print("Error occurred:", e)
+        db.session.delete(file)
+    try:
+        os.remove('static/artifact_img/' + artifact.coverImageName)
+        print("File deleted successfully.")
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print("Error occurred:", e)
+    db.session.delete(artifact)
+    db.session.commit()
+    return flask.redirect('/Archaeology_Gallery')
+
+@app.route("/updateExibitArchaeology/<id>", methods = ['GET', 'POST'])
+@login_required
+def updateExibitArchaeology(id):
+    exhibit = Colection.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        exhibit.name = request.form['name']
+        exhibit.shortDescription = request.form['shortDescription']
+        exhibit.description = request.form['description']
+        db.session.commit()
+        return flask.redirect('/ArchaeologyDisplayExhibit/'+id)
+    return render_template('updatePost.html', base="base.html", subject="Archaeology", exhibit = exhibit)
+
+@app.route("/deleteExibitArchaeology/<id>")
+@login_required
+def deleteExibitArchaeology(id):
+    colection = Colection.query.filter_by(id=id).first()
+    colectionArtifacts = ColectionArtifacts.query.filter_by(colectionId=id).all()
+
+    for artifacts in colectionArtifacts:
+        db.session.delete(artifacts)
+    try:
+        os.remove('static/artifact_img/' + colection.coverImageName)
+        print("File deleted successfully.")
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print("Error occurred:", e)
+    db.session.delete(colection)
+    db.session.commit()
+    return flask.redirect('/Archaeology_Exhibits')
+
+@app.route("/updateNewsArchaeology/<id>", methods = ['GET', 'POST'])
+@login_required
+def updateNewsArchaeology(id):
+    news = News.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        news.name = request.form['name']
+        news.shortDescription = request.form['shortDescription']
+        news.description = request.form['description']
+        db.session.commit()
+        return flask.redirect('/ArchaeologyDisplayNews/'+id)
+    return render_template('updatePost.html', base="base.html", subject="Archaeology", news = news)
+
+@app.route("/deleteNewsArchaeology/<id>")
+@login_required
+def deleteNewsArchaeology(id):
+    news = News.query.filter_by(id=id).first()
+    newsFiles = NewsFiles.query.filter_by(newsId=id).all()
+
+    for file in newsFiles:
+        try:
+            os.remove('static/artifact_img/' + file.fileName)
+            print("File deleted successfully.")
+        except FileNotFoundError:
+            print("File not found.")
+        except Exception as e:
+            print("Error occurred:", e)
+        db.session.delete(file)
+    try:
+        os.remove('static/artifact_img/' + news.coverImageName)
+        print("File deleted successfully.")
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print("Error occurred:", e)
+    db.session.delete(news)
+    db.session.commit()
+    return flask.redirect('/Archaeology_News')
+
 # ***************************** Biology *****************************
 
 @app.route("/Biology")

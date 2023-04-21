@@ -24,6 +24,8 @@
 
     {% elif createArtifact %}
 
+    <h3>WARNING: Artifact subject and files can not be changed after upload</h3>
+
     <form class="artifactUpload" id="artifactUploadForm" action="/Create_Artifact" method="post" enctype='multipart/form-data'>
         <label for="subject">Choose Subject:</label>
         <select id="subject" name="subject">
@@ -47,7 +49,7 @@
     </form><br><br>
 
     <button onclick="addFile()" id="addFileButton">Add File</button><br>
-    <button type="submit" form="artifactUploadForm" value="Submit">Create</button>
+    <button type="submit" form="artifactUploadForm" value="Submit">Create</button><br>
 
     <script>
         
@@ -82,6 +84,8 @@
         {% if artifacts %}
             <!-- DISPLAY LIST OF ARTIFACTS FOR ADDING TO COLLECTION -->
 
+            <h3>WARNING: Exhibit artifacts can not be changed after upload</h3>
+
             <br><form action="/Exibit_Add" method="post" class="admin">
                 <input id="exibitId" name="exibitId" style="display: none" value="{{ exibitId }}">
                 <label for="artifactSelection">Choose Artifacts to be added to Exibit:</label><br>
@@ -94,6 +98,8 @@
                 <input type="submit" value="Add to Exibit">
             </form>
         {% else %}
+
+        <h3>WARNING: Exhibit subject can not be changed after upload</h3>
 
         <form action="/Create_Exibit" method="post" class="admin" enctype='multipart/form-data'>
             <label for="subject">Choose Subject:</label>
@@ -157,6 +163,8 @@
 
     {% elif createNews %}
 
+        <h3>WARNING: News subject and files can not be changed after upload</h3>
+
         <form action="/Create_News" method="post" class="admin" id="newsUploadForm" enctype='multipart/form-data'>
             <label for="subject">Choose Subject:</label>
                 <select id="subject" name="subject">
@@ -180,7 +188,7 @@
         </form><br>
 
         <button id="addFileButton" onclick="addFileNews()"">Add File</button><br>
-        <button type="submit" form="newsUploadForm" value="Submit">Create</button>
+        <button type="submit" form="newsUploadForm" value="Submit">Create</button><br>
 
         <script>
         

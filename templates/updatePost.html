@@ -1,0 +1,49 @@
+{% extends base %}
+
+{% block title %} {{ subject }}Update {% endblock %}
+
+{% block content %}
+
+    {% if artifact %}
+        <form action="/updateArchaeology/{{artifact.id}}" method="post" class="admin" id="artifactUpdate">
+            <label for="name">Artifact Name:</label><br>
+            <input type="text" name="artifactName" maxlength="100" value="{{artifact.name}}" required><br><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="12" cols="75" maxlength="1000" required>
+                {{artifact.description}}
+            </textarea><br><br>
+            <label for="year">optional Year/TimePeriod:</label><br>
+            <input type="text" name="year" maxlength="250" value="{{artifact.timePeriod}}"><br><br>
+        </form>
+        <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    {% elif exhibit %}
+        <form action="/updateExibitArchaeology/{{exhibit.id}}" method="post" class="admin" id="artifactUpdate">
+            <label for="name">Exhibit Name:</label><br>
+            <input type="text" name="name" maxlength="100" value="{{exhibit.name}}" required><br><br>
+            <label for="description">Short Description (only 150 characters):</label><br>
+            <textarea id="shortDescription" name="shortDescription" rows="6" cols="35" maxlength="150" required>
+                {{exhibit.shortDescription}}
+            </textarea><br><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="12" cols="75" maxlength="1000" required>
+                {{exhibit.description}}
+            </textarea><br><br>
+        </form>
+        <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    {% elif news %}
+        <form action="/updateNewsArchaeology/{{news.id}}" method="post" class="admin" id="artifactUpdate">
+            <label for="name">News/Event Name:</label><br>
+            <input type="text" name="name" maxlength="100" value="{{news.name}}" required><br><br>
+            <label for="description">Short Description (only 150 characters):</label><br>
+            <textarea id="shortDescription" name="shortDescription" rows="6" cols="35" maxlength="150" required>
+                {{news.shortDescription}}
+            </textarea><br><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="12" cols="75" maxlength="1000" required>
+                {{news.description}}
+            </textarea><br><br>
+        </form>
+        <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    {% endif %}
+
+{% endblock %}
