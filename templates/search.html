@@ -1,0 +1,44 @@
+{% extends base %}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+
+    {% if artifacts %}
+        {% for post in artifacts %}
+            <div class="gallery-items">
+                <a href="/{{post.subject}}Display/{{post.id}}">
+                <img src="/static/artifact_img/{{post.coverImageName}}" width="150" height="100">
+                <h1>{{ post.name }}</h1><br>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if colections %}
+        {% for post in colections %}
+            <div class="exhibits-items">
+                <a href="/{{post.subject}}DisplayExhibit/{{post.id}}">
+                <img src="/static/exibit_img/{{post.coverImageName}}" width="250" height="250">
+                <h1>{{ post.name }}</h1><br>
+                <p>{{post.shortDescription}}</p>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if news %}
+        {% for post in news %}
+            <div class="news-events-items">
+                <a href="/{{post.subject}}DisplayNews/{{post.id}}">
+                <img src="/static/news_img/{{post.coverImageName}}" width="150" height="100">
+                <h1>{{ post.name }}</h1><br>
+                <h1>{{ post.shortDescription }}</h1><br>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}

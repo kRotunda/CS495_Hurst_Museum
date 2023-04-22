@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
+from sqlalchemy import or_
 import flask
 import os
 import smtplib
@@ -83,8 +84,29 @@ def load_user(uid):
 @app.route("/")
 def home():
     news_collection = News.query.order_by(News.id.desc()).limit(4).all()
-    
     return render_template('home.html', base="base.html",news_collection = news_collection)
+
+# ***************************** Search *****************************
+
+@app.route("/search", methods = ['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_query = request.form['input']
+        artifacts = Artifacts.query.filter(or_(Artifacts.name.ilike(f'%{search_query}%'),
+                                                Artifacts.description.ilike(f'%{search_query}%'),
+                                                Artifacts.subject.ilike(f'%{search_query}%')))
+        colections = Colection.query.filter(or_(Colection.name.ilike(f'%{search_query}%'),
+                                                Colection.shortDescription.ilike(f'%{search_query}%'),
+                                                Colection.description.ilike(f'%{search_query}%'),
+                                                Colection.subject.ilike(f'%{search_query}%')))
+        news = News.query.filter(or_(News.name.ilike(f'%{search_query}%'),
+                                     News.shortDescription.ilike(f'%{search_query}%'),
+                                     News.description.ilike(f'%{search_query}%'),
+                                     News.subject.ilike(f'%{search_query}%')))
+        
+        return render_template('search.html', base="base.html", artifacts=artifacts, colections=colections, news=news, search_query=search_query)
+
+    return render_template('search.html', base="base.html")
 
 # ***************************** Archaeology *****************************
 
@@ -135,11 +157,19 @@ def archaeologyNews():
         return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[int(currentPage)-1], nextPage = len(newsArray), currentPage = currentPage)
     return render_template('news.html', base="base.html", subject="Archaeology", allNews = newsArray[0], nextPage = len(newsArray))
 
+@app.route("/archaeologyDisplay/<id>")
+def archaeologyDisplayReroute(id):
+    return flask.redirect('/ArchaeologyDisplay/'+id)
+
 @app.route("/ArchaeologyDisplay/<id>")
 def archaeologyDisplay(id):
     artifact = Artifacts.query.filter_by(id=id).first()
     artifactFiles = Files.query.filter_by(artifactId=id).all()
     return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles)
+
+@app.route("/archaeologyDisplayExhibit/<id>")
+def archaeologyDisplayExhibitReroute(id):
+    return flask.redirect('/ArchaeologyDisplayExhibit/'+id)
 
 @app.route("/ArchaeologyDisplayExhibit/<id>")
 def archaeologyDisplayExhibit(id):
@@ -154,7 +184,7 @@ def archaeologyDisplayExhibit(id):
     return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList)
 
 @app.route("/archaeologyDisplayNews/<id>")
-def archaeologyDisplayNewsLowerCase(id):
+def archaeologyDisplayNewsReroute(id):
     return flask.redirect('/ArchaeologyDisplayNews/'+id)
 
 @app.route("/ArchaeologyDisplayNews/<id>")
