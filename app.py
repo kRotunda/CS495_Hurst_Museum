@@ -25,6 +25,7 @@ class User(UserMixin, db.Model):
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
+    admin = db.Column(db.Integer)
 
 class Artifacts(db.Model):
    id = db.Column(db.Integer, primary_key=True)
@@ -108,6 +109,26 @@ def search():
 
     return render_template('search.html', base="base.html")
 
+# ***************************** Student *****************************
+
+@app.route("/StudentGallery", methods = ['GET', 'POST'])
+def studentGallery():
+    artifactArray = []
+    # admin_user = User.query.filter_by(username=current_user.username, admin=0).first()
+    # if admin_user:
+    allArtifacts = Artifacts.query.join(User).filter(User.admin==0).all()
+    # else:
+    #     allArtifacts = []
+        
+    if len(allArtifacts) == 0:
+        return render_template('studentGallery.html', base="base.html")
+    for i in range(0, len(allArtifacts), 15):
+        artifactArray.append(allArtifacts[i:i+15])
+    if request.method == 'POST':
+        currentPage = request.form['currentPage']
+        return render_template('studentGallery.html', base="base.html", allArtifacts = artifactArray[int(currentPage)-1], nextPage = len(artifactArray), currentPage = currentPage)
+    return render_template('studentGallery.html', base="base.html", allArtifacts = artifactArray[0], nextPage = len(artifactArray))
+
 # ***************************** Archaeology *****************************
 
 @app.route("/Archaeology")
@@ -117,7 +138,7 @@ def archaeology():
 @app.route("/Archaeology_Gallery", methods = ['GET', 'POST'])
 def archaeologyGallery():
     artifactArray = []
-    allArtifacts = Artifacts.query.filter_by(subject="archaeology").all()
+    allArtifacts = Artifacts.query.join(User).filter(Artifacts.subject=="archaeology", User.admin==1).all()
     if len(allArtifacts) == 0:
         return render_template('gallery.html', base="base.html", subject="Archaeology")
     for i in range(0, len(allArtifacts), 15):
@@ -165,7 +186,7 @@ def archaeologyDisplayReroute(id):
 def archaeologyDisplay(id):
     artifact = Artifacts.query.filter_by(id=id).first()
     artifactFiles = Files.query.filter_by(artifactId=id).all()
-    return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles)
+    return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles, admin=current_user.admin, userId = current_user.id)
 
 @app.route("/archaeologyDisplayExhibit/<id>")
 def archaeologyDisplayExhibitReroute(id):
@@ -181,7 +202,7 @@ def archaeologyDisplayExhibit(id):
         artifact = Artifacts.query.filter_by(id=artifactId.artifactId).first()
         artifactList.append(artifact)
 
-    return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList)
+    return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList, admin=current_user.admin, userId = current_user.id)
 
 @app.route("/archaeologyDisplayNews/<id>")
 def archaeologyDisplayNewsReroute(id):
@@ -191,7 +212,7 @@ def archaeologyDisplayNewsReroute(id):
 def archaeologyDisplayNews(id):
     news = News.query.filter_by(id=id).first()
     newsFiles = NewsFiles.query.filter_by(newsId=id).all()
-    return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles)
+    return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles, admin=current_user.admin, userId = current_user.id)
 
 @app.route("/updateArchaeology/<id>", methods = ['GET', 'POST'])
 @login_required
@@ -398,22 +419,27 @@ def adminLogin():
 @app.route("/Upload")
 @login_required
 def upload():
-    return render_template('upload.html', base="base.html")
+    return render_template('upload.html', base="base.html", admin = current_user.admin)
 
 @app.route("/Create_Admin", methods = ['GET', 'POST'])
 @login_required
 def createAdmin():
     if request.method == 'POST':
+        admin = request.form.get('adminAccount', 0)
+        if admin == 'on':
+            admin = 1
+        else:
+            admin = 0
         username = request.form['username']
         password = request.form['password']
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         email = request.form['email']
-        newUser = User(username = username, password = password, firstname = firstname, lastname = lastname, email = email)
+        newUser = User(username = username, password = password, firstname = firstname, lastname = lastname, email = email, admin = admin)
         db.session.add(newUser)
         db.session.commit()
-        return render_template('upload.html', base="base.html")
-    return render_template('upload.html', base="base.html", createAdmin = 1)
+        return flask.redirect('/Upload')
+    return render_template('upload.html', base="base.html", createAdmin = 1, admin = current_user.admin)
 
 @app.route("/Create_Artifact", methods = ['GET', 'POST'])
 @login_required

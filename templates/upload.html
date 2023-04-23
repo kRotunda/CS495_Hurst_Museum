@@ -9,6 +9,10 @@
     {% if createAdmin %}
 
     <form action="/Create_Admin" method="post" class="admin">
+        {% if admin == 1 %}
+            <label for="admin">Admin Account:</label>
+            <input name="adminAccount" type="checkbox"><br><br>
+        {% endif %}
         <label for="firstname">Firstname:</label><br>
         <input type="text" name="firstname" maxlength="50" required><br><br>
         <label for="lastname">Lastname:</label><br>
@@ -49,7 +53,7 @@
     </form><br><br>
 
     <button onclick="addFile()" id="addFileButton">Add File</button><br>
-    <button type="submit" form="artifactUploadForm" value="Submit">Create</button><br>
+    <button type="submit" form="artifactUploadForm" value="Submit">Create</button><br><br>
 
     <script>
         
@@ -217,25 +221,27 @@
 
     {% else %}
 
+    {% if admin == 1 %}
+        <form action="/Create_News">
+            <button class="upload">News/Events</button>
+        </form>
+
+        <form action="/Create_Admin">
+            <button class="upload">Account</button>
+        </form>
+
+        <form action="/Create_Exibit">
+            <button class="upload">Exibit</button>
+        </form>
+    {% endif %}
+
     <form action="/Create_Artifact">
         <button class="upload">Artifact</button>
-    </form>
-
-    <form action="/Create_Exibit">
-        <button class="upload">Exibit</button>
     </form>
 
     <!-- <form action="/Create_Timeline">
         <button class="upload">Timeline</button>
     </form> -->
-
-    <form action="/Create_News">
-        <button class="upload">News/Events</button>
-    </form>
-
-    <form action="/Create_Admin">
-        <button class="upload">Account</button>
-    </form>
 
     {% endif %}
 
