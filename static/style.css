@@ -346,6 +346,7 @@ footer {
 
 form {
   display: inline-block;
+  margin-left: 200px;
 }
 
 /***************************** History Page *****************************/
@@ -577,3 +578,13 @@ form {
   background-color: rgba(183, 6, 6, 0.8);
 }
 
+.search-container {
+  width:auto;
+  margin: 4rem auto;
+  background-color: antiquewhite;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 5px;
+  margin-bottom: 10px;
+}
