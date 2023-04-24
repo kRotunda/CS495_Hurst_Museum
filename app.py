@@ -93,9 +93,10 @@ def home():
 def search():
     if request.method == 'POST':
         search_query = request.form['input']
-        artifacts = Artifacts.query.filter(or_(Artifacts.name.ilike(f'%{search_query}%'),
-                                                Artifacts.description.ilike(f'%{search_query}%'),
-                                                Artifacts.subject.ilike(f'%{search_query}%')))
+        artifacts = Artifacts.query.join(User).filter((Artifacts.name.ilike(f'%{search_query}%') |
+                                                        Artifacts.description.ilike(f'%{search_query}%') |
+                                                        Artifacts.subject.ilike(f'%{search_query}%')) &
+                                                        (User.admin == 1))
         colections = Colection.query.filter(or_(Colection.name.ilike(f'%{search_query}%'),
                                                 Colection.shortDescription.ilike(f'%{search_query}%'),
                                                 Colection.description.ilike(f'%{search_query}%'),
@@ -104,6 +105,13 @@ def search():
                                      News.shortDescription.ilike(f'%{search_query}%'),
                                      News.description.ilike(f'%{search_query}%'),
                                      News.subject.ilike(f'%{search_query}%')))
+        
+        if len(artifacts) > 15:
+            artifacts = artifacts[0:15]
+        if len(colections) > 15:
+            colections = colections[0:15]
+        if len(news) > 15:
+            news = news[0:15]
         
         return render_template('search.html', base="base.html", artifacts=artifacts, colections=colections, news=news, search_query=search_query)
 
