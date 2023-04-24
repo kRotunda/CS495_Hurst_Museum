@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
+from jinja2.exceptions import TemplateNotFound, UndefinedError
 from werkzeug.utils import secure_filename
 from sqlalchemy import or_
 import flask
@@ -346,13 +347,13 @@ def biologyGallery():
 def biologyExhibits():
     return render_template('exhibits.html', base="base.html", subject="Biology")
 
-@app.route("/Biology_Timeline")
-def biologyTimeline():
-    return render_template('timeline.html', base="base.html", subject="Biology")
+# @app.route("/Biology_Timeline")
+# def biologyTimeline():
+#     return render_template('timeline.html', base="base.html", subject="Biology")
 
 @app.route("/Biology_News")
 def biologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archaeology")
+    return render_template('news.html', base="base.html", subject="Biology")
 
 # ***************************** Geology *****************************
 
@@ -368,13 +369,13 @@ def geologyGallery():
 def geologyExhibits():
     return render_template('exhibits.html', base="base.html", subject="Geology")
 
-@app.route("/Geology_Timeline")
-def geologyTimeline():
-    return render_template('timeline.html', base="base.html", subject="Geology")
+# @app.route("/Geology_Timeline")
+# def geologyTimeline():
+#     return render_template('timeline.html', base="base.html", subject="Geology")
 
 @app.route("/Geology_News")
 def geologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archaeology")
+    return render_template('news.html', base="base.html", subject="Geology")
 
 # ***************************** Paleontology *****************************
 
@@ -390,13 +391,13 @@ def paleontologyGallery():
 def paleontologyExhibits():
     return render_template('exhibits.html', base="base.html", subject="Paleontology")
 
-@app.route("/Paleontology_Timeline")
-def paleontologyTimeline():
-    return render_template('timeline.html', base="base.html", subject="Paleontology")
+# @app.route("/Paleontology_Timeline")
+# def paleontologyTimeline():
+#     return render_template('timeline.html', base="base.html", subject="Paleontology")
 
 @app.route("/Paleontology_News")
 def paleontologyNews():
-    return render_template('timeline.html', base="base.html", subject="Archaeology")
+    return render_template('news.html', base="base.html", subject="Paleontology")
 
 # ***************************** About Us *****************************
 
@@ -618,6 +619,16 @@ def forgotPassword():
         server.quit()
         return flask.redirect('/Admin_Login')
     return render_template('forgot.html', base="base.html")
+
+# ***************************** Error *****************************
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error.html', base="base.html"), 404
+
+@app.errorhandler(UndefinedError)
+def handle_undefined_error(error):
+    return render_template('error.html', base="base.html", error=error), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
