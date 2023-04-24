@@ -33,11 +33,11 @@
           <a href="/Admin_Login">Login</a>
         {% endif %}
       </div>
-      <form action="/search" method="post">
-        <input type="text" name="input" id="input">
-        <input type="submit" value="Search">
-      </form>
     </div> 
+    <form action="/search" method="post" class="nav-search">
+      <input type="text" name="input" id="input">
+      <input type="submit" value="Search">
+    </form>
   </div>
 
 {% block content %}{% endblock %}
