@@ -246,7 +246,7 @@
                     <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="300" height="300">
                     <p class="description">{{exhibit.description}}</p>
                     {% if current_user.is_authenticated %}
-                    {% if admin == 1 or userId == artifact.uploadedBy %}
+                    {% if admin == 1 or userId == exhibit.uploadedBy %}
                     <div class="artifactfiles-items">
                         <a href="/updateExibit{{ subject }}/{{exhibit.id}}">Update</a>
                     </div>
@@ -308,7 +308,7 @@
                 <img src="/static/news_img/{{news.coverImageName}}" width="300" height="200">
                 <p class="description">{{news.description}}</p>
                 {% if current_user.is_authenticated %}
-                {% if admin == 1 or userId == artifact.uploadedBy %}
+                {% if admin == 1 or userId == news.uploadedBy %}
                 <div class="artifactfiles-items">
                     <a href="/updateNews{{ subject }}/{{news.id}}">Update</a>
                 </div>

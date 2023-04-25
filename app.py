@@ -97,22 +97,15 @@ def search():
         artifacts = Artifacts.query.join(User).filter((Artifacts.name.ilike(f'%{search_query}%') |
                                                         Artifacts.description.ilike(f'%{search_query}%') |
                                                         Artifacts.subject.ilike(f'%{search_query}%')) &
-                                                        (User.admin == 1))
+                                                        (User.admin == 1)).limit(15)
         colections = Colection.query.filter(or_(Colection.name.ilike(f'%{search_query}%'),
                                                 Colection.shortDescription.ilike(f'%{search_query}%'),
                                                 Colection.description.ilike(f'%{search_query}%'),
-                                                Colection.subject.ilike(f'%{search_query}%')))
+                                                Colection.subject.ilike(f'%{search_query}%'))).limit(15)
         news = News.query.filter(or_(News.name.ilike(f'%{search_query}%'),
                                      News.shortDescription.ilike(f'%{search_query}%'),
                                      News.description.ilike(f'%{search_query}%'),
-                                     News.subject.ilike(f'%{search_query}%')))
-        
-        if len(artifacts) > 15:
-            artifacts = artifacts[0:15]
-        if len(colections) > 15:
-            colections = colections[0:15]
-        if len(news) > 15:
-            news = news[0:15]
+                                     News.subject.ilike(f'%{search_query}%'))).limit(15)
         
         return render_template('search.html', base="base.html", artifacts=artifacts, colections=colections, news=news, search_query=search_query)
 
@@ -195,7 +188,9 @@ def archaeologyDisplayReroute(id):
 def archaeologyDisplay(id):
     artifact = Artifacts.query.filter_by(id=id).first()
     artifactFiles = Files.query.filter_by(artifactId=id).all()
-    return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles, admin=current_user.admin, userId = current_user.id)
+    if current_user.is_authenticated:
+        return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles, admin=current_user.admin, userId = current_user.id)
+    return render_template('display.html', base="base.html", subject="Archaeology", artifact = artifact, artifactFiles = artifactFiles)
 
 @app.route("/archaeologyDisplayExhibit/<id>")
 def archaeologyDisplayExhibitReroute(id):
@@ -211,7 +206,9 @@ def archaeologyDisplayExhibit(id):
         artifact = Artifacts.query.filter_by(id=artifactId.artifactId).first()
         artifactList.append(artifact)
 
-    return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList, admin=current_user.admin, userId = current_user.id)
+    if current_user.is_authenticated:
+        return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList, admin=current_user.admin, userId = current_user.id)
+    return render_template('display.html', base="base.html", subject="Archaeology", exhibit = exhibit, artifactList = artifactList)
 
 @app.route("/archaeologyDisplayNews/<id>")
 def archaeologyDisplayNewsReroute(id):
@@ -221,7 +218,10 @@ def archaeologyDisplayNewsReroute(id):
 def archaeologyDisplayNews(id):
     news = News.query.filter_by(id=id).first()
     newsFiles = NewsFiles.query.filter_by(newsId=id).all()
-    return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles, admin=current_user.admin, userId = current_user.id)
+    if current_user.is_authenticated:
+        return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles, admin=current_user.admin, userId = current_user.id)
+    return render_template('display.html', base="base.html", subject="Archaeology", news = news, newsFiles = newsFiles)
+
 
 @app.route("/updateArchaeology/<id>", methods = ['GET', 'POST'])
 @login_required
@@ -486,7 +486,7 @@ def createArtifact():
             db.session.commit()
     
 
-        return render_template('upload.html', base="base.html")
+        return flask.redirect('/Upload')
     return render_template('upload.html', base="base.html", createArtifact = 1)
 
 @app.route("/Create_Exibit", methods = ['GET', 'POST'])
@@ -527,7 +527,7 @@ def exibitAdd():
         db.session.add(addExibit)
         db.session.commit()
 
-    return render_template('upload.html', base="base.html")
+    return flask.redirect('/Upload')
 
 @app.route("/Create_News", methods = ['GET', 'POST'])
 @login_required
@@ -562,7 +562,7 @@ def createNews():
                 db.session.add(newNewsFile)
                 db.session.commit()
 
-        return render_template('upload.html', base="base.html")
+        return flask.redirect('/Upload')
     return render_template('upload.html', base="base.html", createNews = 1)
 
 # @app.route("/Create_Timeline", methods = ['GET', 'POST'])
@@ -626,9 +626,9 @@ def forgotPassword():
 def page_not_found(error):
     return render_template('error.html', base="base.html"), 404
 
-@app.errorhandler(UndefinedError)
-def handle_undefined_error(error):
-    return render_template('error.html', base="base.html", error=error), 500
+# @app.errorhandler(UndefinedError)
+# def handle_undefined_error(error):
+#     return render_template('error.html', base="base.html", error=error), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
