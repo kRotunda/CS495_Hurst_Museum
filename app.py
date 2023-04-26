@@ -15,9 +15,9 @@ app.config['SECRET_KEY'] = 'secretCey'
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 db = SQLAlchemy(app)
-app.config["IMAGE_UPLOADS"] = "static\\artifact_img"
-app.config["NEWS_UPLOADS"] = "static\\news_img"
-app.config["EXIBIT_UPLOADS"] = "static\\exibit_img"
+app.config["IMAGE_UPLOADS"] = "static/artifact_img"
+app.config["NEWS_UPLOADS"] = "static/news_img"
+app.config["EXIBIT_UPLOADS"] = "static/exibit_img"
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
