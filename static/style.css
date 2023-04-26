@@ -613,8 +613,11 @@ form {
 }
 
 .about_us_parent {
-  display: flex;
+  /* display: inline-flex;
   flex-direction: row;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(3,225px);
   background-color: #B10505;
   border-radius: 10%;
   padding: 25px;
@@ -622,7 +625,9 @@ form {
 }
 
 .about_us_child {
+  display: inline;
   margin: 15px;
+  padding: 0px 8px;
   border-radius: 5%;
 }
 
@@ -630,6 +635,14 @@ form {
   float: left;
   padding-top: 20px;
   color: white;
+}
+
+.about_us_description {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-align: left;
+  text-indent: 35px;
 }
 
 .about_us_links {
