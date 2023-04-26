@@ -18,7 +18,7 @@ body {
   background-image: url('/static/resorce_img/congruent_outline.png');
   background-color: black;
   height: auto;
-  background-repeat:repeat;
+  background-repeat: repeat;
   background-size: cover;
   color: white;
   padding-bottom: 100px;
@@ -62,6 +62,7 @@ h6 {
   padding: 14px 16px;
   text-decoration: none;
 }
+
 .nav-search {
   float: right;
   color: black;
@@ -169,7 +170,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top:20px ;
+  margin-top: 20px;
 }
 
 .footer-container {
@@ -423,6 +424,28 @@ form {
   margin-bottom: .5rem;
 }
 
+.news-container a:link {
+  text-decoration: none;
+  color: black;
+}
+
+
+.news-container a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+
+.news-container a:hover {
+  text-decoration: none;
+}
+
+
+.news-container a:active {
+  text-decoration: none;
+}
+
+
 /* ----------quick lines------------------------------------- */
 
 .quick-links {
@@ -432,6 +455,7 @@ form {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 5px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .quicklink-items {
@@ -440,7 +464,8 @@ form {
   border: 2px solid black;
   margin: 10px;
   min-width: 0;
-  height: 150px; /* or any other value you choose */
+  height: 150px;
+  /* or any other value you choose */
 }
 
 .quicklinks-items:hover {
@@ -452,12 +477,33 @@ form {
   margin-bottom: .5rem;
 }
 
+.quick-links a:link {
+  text-decoration: none;
+  color: black;
+}
+
+
+.quick-links a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+
+.quick-links a:hover {
+  text-decoration: none;
+}
+
+
+.quick-links a:active {
+  text-decoration: none;
+}
+
 
 
 /* ---------gallery--------------------------------------------------- */
 
 .gallery-container {
-  width:auto;
+  width: auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
@@ -485,7 +531,7 @@ form {
 /* --------Exhibits---------------------------------------------------------- */
 
 .exhibits-container {
-  width:auto;
+  width: auto;
   background-color: antiquewhite;
   display: grid;
   align-items: center;
@@ -513,7 +559,7 @@ form {
 /* ----------------------------------------------- */
 
 .news-events-container {
-  width:auto;
+  width: auto;
   margin: 4rem auto;
   background-color: antiquewhite;
   display: grid;
@@ -521,6 +567,7 @@ form {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 5px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .news-events-items {
@@ -537,6 +584,26 @@ form {
 .news-events-items-heading {
   color: red;
   margin-bottom: .5rem;
+}
+
+
+.news-events-container a:link {
+  text-decoration: none;
+}
+
+
+.news-events-container a:visited {
+  text-decoration: none;
+}
+
+
+.news-events-container a:hover {
+  text-decoration: none;
+}
+
+
+.news-events-container a:active {
+  text-decoration: none;
 }
 
 /* --------contact us---------------------------------------------------------- */
@@ -571,10 +638,10 @@ form {
 }
 
 .modelButton {
-  margin:auto; 
-  padding:14px 16px;
-  background-color:lightcoral;
-  color:#000;
+  margin: auto;
+  padding: 14px 16px;
+  background-color: lightcoral;
+  color: #000;
   background-color: #B10505;
   opacity: 1;
   border-radius: 8px;
@@ -585,7 +652,7 @@ form {
 }
 
 .search-container {
-  width:auto;
+  width: auto;
   margin: 4rem auto;
   background-color: antiquewhite;
   display: grid;
@@ -593,4 +660,37 @@ form {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 5px;
   margin-bottom: 10px;
+}
+
+/* overview  ----------------------------------*/
+
+.overview-slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: 10px;
+  width: 400px;
+  height: 300px;
+  background-color: #201D1D;
+
+}
+
+.overview-mySlides image {
+  display: none;
+  padding: 50px;
+  margin: 50px;
+  object-fit: scale-down;
+  width: 400px;
+  height: 300px;
+}
+
+.overview-main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+.overview-text {
+  width: 500px;
+  margin: 20px;
 }
