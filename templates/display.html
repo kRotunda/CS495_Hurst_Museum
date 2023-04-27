@@ -75,8 +75,6 @@
     {% endif %}
 
 
-
-
     {% if exhibit %}
     <div class="vertical-menu">
         <a href="/{{ subject }}">Overview</a>
@@ -91,7 +89,7 @@
             <h1>{{exhibit.name}}</h1>
             <div class="display-items">
                 <div class="display-info">
-                    <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="300" height="300">
+                    <img src="/static/exibit_img/{{exhibit.coverImageName}}" width="300" height="200">
                     <p class="description">{{exhibit.description}}</p>
                     {% if current_user.is_authenticated %}
                     {% if admin == 1 or userId == exhibit.uploadedBy %}
@@ -116,12 +114,11 @@
 
                 <div class="news-items">
                     <a href="/{{news.subject}}DisplayNews/{{news.id}}">
-                        <img src="static/news_img/{{news.coverImageName}}" height="200" width="300">
+                        <img src="static/news_img/{{news.coverImageName}}" width="300" height="200">
                         <h3 class="news-item-heading">{{news.name}}</h3>
                         <p class="news-item-body">{{news.shortDescription}}</p>
                     </a>
                 </div>
-
                 {% endfor %}
 
                 <div class="artifact-container">
@@ -129,7 +126,7 @@
                     {% for artifact in artifactList %}
                     <div class="artifact-items">
                         <a href="/{{subject}}Display/{{artifact.id}}" style="text-decoration: none;">
-                            <img src="/static/artifact_img/{{artifact.coverImageName}}" width="200" height="150">
+                            <img src="/static/artifact_img/{{artifact.coverImageName}}" width="250" height="150">
                             <h1>{{ artifact.name }}</h1>
                         </a>
                         {% endfor %}
@@ -140,10 +137,7 @@
         </div>
     </div>
 </div>
-</div>
 {% endif %}
-
-
 
 {% if news %}
 <div class="vertical-menu">
@@ -153,7 +147,6 @@
     <a href="/{{ subject }}_News" class="active">News/Events</a>
     <!-- <a href="/{{ subject }}_Timeline">Timeline</a> -->
 </div>
-
 
 <div class="main-content">
     <div class="display-container">
@@ -209,7 +202,7 @@
 
                 {% else %}
                 <div class="news-files-items">
-                    <img src="/static/news_img/{{file.fileName}}" width="150" height="100"><br>
+                    <img src="/static/news_img/{{file.fileName}}" width="300" height="200"><br>
                 </div>
                 {% endif %}
                 {% endfor %}
