@@ -430,6 +430,21 @@ def adminLogin():
 def upload():
     return render_template('upload.html', base="base.html", admin = current_user.admin)
 
+@app.route("/Delete_User/<id>")
+@login_required
+def deleteUser(id):
+    user = User.query.filter_by(id=id).first()
+    db.session.delete(user)
+    db.session.commit()
+    users = User.query.all()
+    return render_template('viewUsers.html', base="base.html", users=users)
+
+@app.route("/View_Users")
+@login_required
+def viewUser():
+    users = User.query.all()
+    return render_template('viewUsers.html', base="base.html", users=users)
+
 @app.route("/Create_Admin", methods = ['GET', 'POST'])
 @login_required
 def createAdmin():
