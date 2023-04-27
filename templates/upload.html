@@ -4,10 +4,11 @@
 
 {% block content %}
 
-    <h1 align="left">Create</h1><br><br>
+    <h1 style="align-items: center;">Upload</h1><br>
 
     {% if createAdmin %}
 
+    <div class="admin-container">
     <form action="/Create_Admin" method="post" class="admin">
         {% if admin == 1 %}
             <label for="admin">Admin Account:</label>
@@ -25,11 +26,10 @@
         <input type="text" name="email" required><br><br>
         <input type="submit" value="Create">
     </form>
-
+    </div>
     {% elif createArtifact %}
-
+    <div class="admin-container">
     <h3>WARNING: Artifact subject and files can not be changed after upload</h3>
-
     <form class="artifactUpload" id="artifactUploadForm" action="/Create_Artifact" method="post" enctype='multipart/form-data'>
         <label for="subject">Choose Subject:</label>
         <select id="subject" name="subject">
@@ -55,6 +55,7 @@
     <button onclick="addFile()" id="addFileButton">Add File</button><br>
     <button type="submit" form="artifactUploadForm" value="Submit">Create</button><br><br>
 
+    </div>
     <script>
         
         fileCount = 1;
@@ -79,8 +80,9 @@
 
     </script>
 
-    {% elif createExibit %}
 
+    {% elif createExibit %}
+    <div class="admin-container">
         {% if error %}
             <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a exibit</p>
         {% endif %}
@@ -127,9 +129,9 @@
         </form>
 
         {% endif %}
-
+    </div>
     {% elif createTimeline %}
-        
+    <div class="admin-container">
         {% if error %}
             <p style="color:red;">ERROR: No artifacts for selected subject. Please add artifacts before making a timeline</p>
         {% endif %}
@@ -164,9 +166,9 @@
         </form>
 
         {% endif %}
-
+    </div>
     {% elif createNews %}
-
+    <div class="admin-container">
         <h3>WARNING: News subject and files can not be changed after upload</h3>
 
         <form action="/Create_News" method="post" class="admin" id="newsUploadForm" enctype='multipart/form-data'>
@@ -193,7 +195,7 @@
 
         <button id="addFileButton" onclick="addFileNews()"">Add File</button><br>
         <button type="submit" form="newsUploadForm" value="Submit">Create</button><br>
-
+    </div>
         <script>
         
             fileCount = 0;

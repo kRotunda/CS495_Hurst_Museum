@@ -6,6 +6,8 @@
 
 <h1>Admin Login</h1>
 
+<div class="admin-container">
+  
 <form action="/Admin_Login" method="post" class="admin">
     <label for="username">Username:</label><br>
     <input type="text" name="username"><br><br>
@@ -15,6 +17,9 @@
 </form><br><br>
 
 <button onclick="sendEmail()" style="margin-bottom: 20px;">Forgot username/password</button>
+
+</div>
+
 
 {% if error %}
   <p style="color:red;">ERROR: username/password incorrect</p>

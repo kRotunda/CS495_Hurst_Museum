@@ -3,8 +3,9 @@
 {% block title %} {{ subject }}Update {% endblock %}
 
 {% block content %}
-
+<h1 style="align-items: center;">Update</h1><br>
     {% if artifact %}
+    <div class="admin-container">
         <form action="/updateArchaeology/{{artifact.id}}" method="post" class="admin" id="artifactUpdate">
             <label for="name">Artifact Name:</label><br>
             <input type="text" name="artifactName" maxlength="100" value="{{artifact.name}}" required><br><br>
@@ -16,7 +17,9 @@
             <input type="text" name="year" maxlength="250" value="{{artifact.timePeriod}}"><br><br>
         </form>
         <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    </div>
     {% elif exhibit %}
+    <div class="admin-container">
         <form action="/updateExibitArchaeology/{{exhibit.id}}" method="post" class="admin" id="artifactUpdate">
             <label for="name">Exhibit Name:</label><br>
             <input type="text" name="name" maxlength="100" value="{{exhibit.name}}" required><br><br>
@@ -30,7 +33,9 @@
             </textarea><br><br>
         </form>
         <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    </div>
     {% elif news %}
+    <div class="admin-container">
         <form action="/updateNewsArchaeology/{{news.id}}" method="post" class="admin" id="artifactUpdate">
             <label for="name">News/Event Name:</label><br>
             <input type="text" name="name" maxlength="100" value="{{news.name}}" required><br><br>
@@ -44,6 +49,7 @@
             </textarea><br><br>
         </form>
         <button type="submit" form="artifactUpdate" value="Submit">Update</button><br>
+    </div>
     {% endif %}
 
 {% endblock %}
