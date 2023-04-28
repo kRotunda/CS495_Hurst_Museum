@@ -388,6 +388,7 @@ form {
   display: flex;
   text-align: left;
   text-indent: 35px;
+  font-size: large;
 }
 
 .elements {
@@ -395,10 +396,17 @@ form {
   width: 25%;
   padding-left: 1%;
   padding-right: 1%;
+  border-radius: 5%;
 }
 
 #img_1 {
-  height: 15%;
+  height: 80%;
+  width: auto;
+}
+
+#img_2 {
+  height: 25%;
+  width: 25%;
 }
 
 /***************************** Gallery Page *****************************/
