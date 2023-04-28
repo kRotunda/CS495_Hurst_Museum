@@ -641,9 +641,9 @@ def forgotPassword():
 def page_not_found(error):
     return render_template('error.html', base="base.html"), 404
 
-# @app.errorhandler(UndefinedError)
-# def handle_undefined_error(error):
-#     return render_template('error.html', base="base.html", error=error), 500
+@app.errorhandler(UndefinedError)
+def handle_undefined_error(error):
+    return render_template('error.html', base="base.html", error=error), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
